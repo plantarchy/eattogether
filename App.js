@@ -16,6 +16,7 @@ import Feed from './src/screens/Feed';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
 import FriendsTop from './src/screens/FriendsTop'
+import Eat from './src/screens/Eat'
 // import TabHeader from './src/components/TabHeader';
 import React, {useMemo} from 'react';
 

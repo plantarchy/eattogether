@@ -17,7 +17,15 @@ import {
 const Home = props => {
   return (
     <View style={styles.container}>
-      <Text> your dad gay </Text>
+      <TouchableOpacity onPress={() => {console.log("jerry")}} style={{...styles.user, marginTop: 20, backgroundColor: "#2BD55B", marginBottom: 16}}>
+        <Text style={{fontSize: 18, color: "#EEE"}}>Jerry</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => (props.navigation.replace("eat"))}>
+            <Image
+              source={require("D:\eatogether\eattogether\assets\eat.png")}
+              style={{width: 24, height: 24, marginRight: 24 }}
+            />
+          </TouchableOpacity>
     </View>
   )
 }
@@ -25,6 +33,14 @@ const Home = props => {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const styles = StyleSheet.create({
+  user: {
+    padding: 16,
+    backgroundColor: "#666",
+    width: DEVICE_WIDTH * 0.7,
+    alignItems: "center",
+    borderRadius: 15,
+    color: "#EEE"
+  },
   container: {
     display: "flex",
     height: DEVICE_HEIGHT,
