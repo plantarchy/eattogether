@@ -24,7 +24,7 @@ const EatIcon = props => {
         <View style={{...styles.eat}}> 
             <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
       <Image
-        source={require("../../assets/eat.png")}
+        defaultSource={require("../../assets/eat.png")}
         style={{...styles.eat, width: 100, height: 100}}  />
     </TouchableOpacity>
         </View>

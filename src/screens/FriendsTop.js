@@ -14,7 +14,7 @@ import {
   SafeAreaView
 } from 'react-native';
 
-import NewFriend from '../components/Friend';
+import NewFriend from '../components/FriendObject';
 import AddFriend from '../components/AddFriend';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -25,7 +25,7 @@ const FriendView = props => {
     for (let friend of friends) {
         // items is a list of objects with the friends names
         items.push(
-            <NewFriend name={friend}/>
+            <NewFriend key={`${friend}`} name={friend}/>
         )
     }
     

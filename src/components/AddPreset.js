@@ -17,13 +17,13 @@ import {
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
-const AddFriend = props => {
+const AddPreset = props => {
         
     return (
         <View style={{...styles.addButton}}> 
-            <TouchableOpacity onPress={() => {console.log("add friend")}} style={{marginLeft: "auto"}}>
+            <TouchableOpacity onPress={() => {console.log("add preset")}} style={{marginLeft: "auto"}}>
                 <Image
-                defaultSource={require("../../assets/addFriend.png")}
+                source={require("../../assets/addFriend.png")} // same icon as add friend
                 style={{...styles.addButton, width: 100, height: 100 }}
                 />
             </TouchableOpacity>
@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         bottom: 48,
         backgroundColor: 'transparent',
-        position: 'absolute',
+        position: 'fixed',
         paddingRight: 15
     }
 
 })
-export default AddFriend
+export default AddPreset
