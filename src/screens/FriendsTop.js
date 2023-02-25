@@ -17,11 +17,13 @@ import {
 const Login = props => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 48, marginBottom: 32 }}>QuickEats</Text>
-      <TouchableOpacity onPress={() => {console.log("login")}} style={{...styles.button, backgroundColor: "#2BD55B", marginBottom: 16}}>
+      <Text style={{ fontSize: 48, marginBottom: 32 }}>Friends</Text>
+      <TouchableOpacity onPress={() => {console.log("favorite")}} style={{...styles.button, backgroundColor: "#2BD55B", marginBottom: 16}}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Signup</Text>
+      
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {console.log("login")}} style={styles.button}>
+      
+      <TouchableOpacity onPress={() => {console.log("add friend")}} style={styles.addfriend}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Login</Text>
       </TouchableOpacity>
     </View>
@@ -35,11 +37,22 @@ const styles = StyleSheet.create({
     display: "flex",
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    justifyContent: "center",
+    
     alignItems: "center",
     textAlign: "center",
     paddingBottom: 0.2 * DEVICE_HEIGHT
   },
+  addfriend: {
+    padding: 10,
+    backgroundColor: "#66CB6A", // 102 203 106
+    width: DEVICE_WIDTH * 0.2,
+    height: DEVICE_HEIGHT * 0.1,
+    color: "000000",
+    marginBottom: 20,
+    x: DEVICE_WIDTH * .5,
+    y: DEVICE_HEIGHT * .1,
+
+  }, 
   button: {
     padding: 16,
     backgroundColor: "#666",

@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderBottomColor: "#CCCCCC",
     borderBottomWidth: 1,
-    paddingBottom: 8
+    paddingBottom: 8,
+    paddingTop: 12,
   }
 });
