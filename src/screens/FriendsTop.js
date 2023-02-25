@@ -14,7 +14,6 @@ import {
   SafeAreaView
 } from 'react-native';
 
-// comment
 const Login = props => {
   return (
     <View style={styles.container}>
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
     display: "flex",
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
