@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    paddingBottom: 0.2 * DEVICE_HEIGHT
+    //paddingBottom: 0.2 * DEVICE_HEIGHT
   },
   button: {
     padding: 16,
