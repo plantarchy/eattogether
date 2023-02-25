@@ -38,7 +38,7 @@ const Home = props => {
 
   return (
 
-   
+    <>
     <View style={styles.container}>
       <TouchableOpacity onPress={() => {console.log("jerry")}} style={{...styles.user, marginTop: 20, backgroundColor: "#2BD55B", marginBottom: 16}}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Jerry</Text>
@@ -49,12 +49,6 @@ const Home = props => {
               style={{width: 24, height: 24, marginRight: 24 }}
             />
           </TouchableOpacity>
-
-    //<>
-    //<ScrollView>{items}</ScrollView>
-    //<View style={styles.southPanel}>
-      //<Text>FDOIJSH</Text>
-
     </View>
     </>
   )
@@ -109,7 +103,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: "green"
   }
-  
+
 
 });
 

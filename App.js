@@ -20,7 +20,10 @@ import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo, useContext, useState} from 'react';
+import { getAuth, reauthenticateWithCredential } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GlobalContext, GlobalProvider } from './src/modules/GlobalContext'
 
 const renderScene = SceneMap({
   home: Home,
@@ -74,6 +77,7 @@ export default function App() {
   }
 
   return (
+    <GlobalProvider>
     <NavigationContainer ref={navigationRef}>
       <StatusBar
         backgroundColor="#F2F2F2"
@@ -81,18 +85,19 @@ export default function App() {
       />
 
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
-      <Stack.Navigator initialRouteName="main" screenOptions={{
+      <Stack.Navigator initialRouteName="splash" screenOptions={{
 
         headerShown: false
       }}>
+        <Stack.Screen name="main" component={MainScreen} />
         <Stack.Screen name="splash" component={Splash} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="eat" component={Eat} />
         <Stack.Screen name="signup" component={Signup} />
-        <Stack.Screen name="main" component={MainScreen} />
       </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
     </NavigationContainer>
+    </GlobalProvider>
   );
 }
 

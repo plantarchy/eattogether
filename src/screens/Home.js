@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -13,11 +13,14 @@ import {
   Keyboard,
   SafeAreaView
 } from 'react-native';
+import { GlobalContext } from '../modules/GlobalContext';
 
 const Home = props => {
+  const { user, setUser } = useContext(GlobalContext);
+  // console.log("PROVIDER", useContext(GlobalContext));
   return (
     <View style={styles.container}>
-      <Text> your mom gay </Text>
+      <Text>{ JSON.stringify(user) }</Text>
     </View>
   )
 }
