@@ -35,7 +35,7 @@ export default function App() {
   const [routes] = React.useState([
     { key: 'home', title: 'Home' },
     { key: 'feed', title: 'Feed' },
-    { key: 'friendsTop', title: 'FriendsTop' },
+    { key: 'friendsTop', title: 'Friends' },
   ]);
 
   function MainScreen() {
@@ -50,7 +50,7 @@ export default function App() {
             />
           </TouchableOpacity>
           }
-          <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Feed</Text>
+          <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>{routes[index].title}</Text>
           { index === routes.length - 1 ? <View style={{ width: 24, marginRight: 24 }} /> :
           <TouchableOpacity onPress={() => (setIndex(index + 1))}>
             <Image
