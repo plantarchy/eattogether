@@ -15,6 +15,7 @@ import Home from './src/screens/Home';
 import Feed from './src/screens/Feed';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
+import Splash from './src/screens/Splash';
 import FriendsTop from './src/screens/FriendsTop'
 // import TabHeader from './src/components/TabHeader';
 import React, {useMemo} from 'react';
@@ -77,10 +78,13 @@ export default function App() {
         backgroundColor="#F2F2F2"
         barStyle="light-content"
       />
+
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
       <Stack.Navigator initialRouteName="main" screenOptions={{
+
         headerShown: false
       }}>
+        <Stack.Screen name="splash" component={Splash} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="main" component={MainScreen} />

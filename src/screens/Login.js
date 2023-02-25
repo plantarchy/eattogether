@@ -16,8 +16,19 @@ import {
 
 const Login = props => {
   return (
+    <>
+    <View style={styles.topBar}>
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <Image
+          source={require("../../assets/left-arrow.png")}
+          style={{width: 24, height: 24, marginLeft: 24 }}
+        />
+      </TouchableOpacity>
+      <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Login</Text>
+      <View style={{width: 24, marginRight: 24 }} />
+    </View>
     <View style={styles.container}>
-      <Text style={{ fontSize: 48 }}>QuickEats</Text>
+      <Text style={{ fontSize: 48, marginBottom: 24 }}>Login</Text>
       <TextInput
         style={{ ...styles.textInput, marginBottom: 16 }}
         placeholder="Username"
@@ -30,6 +41,7 @@ const Login = props => {
         <Text style={{fontSize: 18}}>Login</Text>
       </TouchableOpacity>
     </View>
+    </>
   )
 }
 
@@ -58,6 +70,15 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#D9D9D9",
     borderRadius: 15,
+  },
+  topBar: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    borderBottomColor: "#CCCCCC",
+    borderBottomWidth: 1,
+    paddingBottom: 8,
+    paddingTop: 12,
   }
 });
 
