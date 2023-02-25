@@ -14,37 +14,35 @@ import {
   SafeAreaView
 
   } from 'react-native';
-  import { navigationRef } from '../lib/navigation'
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
-const EatIcon = props => {
+const AddPreset = props => {
         
     return (
-        <View style={{...styles.eat}}> 
-            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
-      <Image
-        defaultSource={require("../../assets/eat.png")}
-        style={{...styles.eat, width: 100, height: 100}}  />
-    </TouchableOpacity>
+        <View style={{...styles.addButton}}> 
+            <TouchableOpacity onPress={() => {console.log("add preset")}} style={{marginLeft: "auto"}}>
+                <Image
+                source={require("../../assets/addFriend.png")} // same icon as add friend
+                style={{...styles.addButton, width: 100, height: 100 }}
+                />
+            </TouchableOpacity>
         </View>
       )
 }
 // flex direction col then flex direction row to move it up and down
 
 const styles = StyleSheet.create({
-    eat: {
+    addButton: {
         display: "flex",
         zIndex: 99,
-        justifyContent: "center",
-        alignSelf: 'center',
-        bottom: 90,
+        justifyContent: "flex-end",
+        alignSelf: 'flex-end',
+        bottom: 48,
         backgroundColor: 'transparent',
         position: 'fixed',
-        color: 'white'
-        
-      },
-    
+        paddingRight: 15
+    }
 
 })
-export default EatIcon
+export default AddPreset

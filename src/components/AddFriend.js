@@ -23,7 +23,7 @@ const AddFriend = props => {
         <View style={{...styles.addButton}}> 
             <TouchableOpacity onPress={() => {console.log("add friend")}} style={{marginLeft: "auto"}}>
                 <Image
-                source={require("../../assets/addFriend.png")}
+                defaultSource={require("../../assets/addFriend.png")}
                 style={{...styles.addButton, width: 100, height: 100 }}
                 />
             </TouchableOpacity>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         bottom: 48,
         backgroundColor: 'transparent',
-        position: 'fixed',
+        position: 'absolute',
         paddingRight: 15
     }
 

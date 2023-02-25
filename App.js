@@ -18,6 +18,9 @@ import Signup from './src/screens/Signup';
 import Splash from './src/screens/Splash';
 import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
+import Presets from './src/screens/Presets'
+
+
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
 import React, {useMemo} from 'react';
@@ -26,6 +29,7 @@ const renderScene = SceneMap({
   home: Home,
   feed: Feed,
   friendsTop: FriendsTop,
+  preset: Presets,
 });
 
 const Stack = createStackNavigator();
@@ -38,6 +42,7 @@ export default function App() {
     { key: 'home', title: 'Home' },
     { key: 'feed', title: 'Feed' },
     { key: 'friendsTop', title: 'Friends' },
+    { key: 'preset', title: 'Presets' }
   ]);
 
   function MainScreen() {
@@ -99,6 +104,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative"
   },
   topBar: {
     display: "flex",

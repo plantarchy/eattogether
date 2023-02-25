@@ -17,7 +17,7 @@ import {
 const Home = props => {
   return (
     <View style={styles.container}>
-      <Text> your mom gay </Text>
+      <Text> key={'har'}your mom gay </Text>
     </View>
   )
 }
