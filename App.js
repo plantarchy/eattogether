@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   useWindowDimensions,
   SafeAreaView,
   TouchableOpacity
@@ -39,17 +40,23 @@ export default function App() {
       <SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
       <SafeAreaView style={styles.container}>
         <View style={styles.topBar}>
-          <TouchableOpacity onPress={() => (console.log("-1"))}>
-            <Text style={{color: 'blue', fontSize: 24, marginLeft: 24}}>
-              &larr;
-            </Text>
+          { index === 0 ? <View style={{ width: 24, marginLeft: 24 }} /> :
+          <TouchableOpacity onPress={() => (setIndex(index - 1))}>
+            <Image
+              source={require("./assets/left-arrow.png")}
+              style={{width: 24, height: 24, marginLeft: 24 }}
+            />
           </TouchableOpacity>
+          }
           <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Feed</Text>
-          <TouchableOpacity onPress={() => (console.log("+1"))}>
-            <Text style={{color: 'blue', fontSize: 24, marginRight: 24}}>
-              &rarr;
-            </Text>
+          { index === routes.length - 1 ? <View style={{ width: 24, marginRight: 24 }} /> :
+          <TouchableOpacity onPress={() => (setIndex(index + 1))}>
+            <Image
+              source={require("./assets/right-arrow.png")}
+              style={{width: 24, height: 24, marginRight: 24 }}
+            />
           </TouchableOpacity>
+          }
         </View>
         <TabView
           renderTabBar={() => null}
