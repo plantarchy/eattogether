@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     display: "flex",
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
