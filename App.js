@@ -13,6 +13,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Home from './src/screens/Home';
 import Feed from './src/screens/Feed';
+import Login from './src/screens/Login';
+import Signup from './src/screens/Signup';
 // import TabHeader from './src/components/TabHeader';
 import React, {useMemo} from 'react';
 
@@ -21,6 +23,8 @@ const renderScene = SceneMap({
   home: Home,
   feed: Feed,
 });
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const layout = useWindowDimensions();
@@ -31,13 +35,8 @@ export default function App() {
     { key: 'feed', title: 'Feed' },
   ]);
 
-  return (
-    <NavigationContainer>
-      <StatusBar
-        backgroundColor="white"
-        barStyle="light-content"
-      />
-      <SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
+  function MainScreen() {
+    return (
       <SafeAreaView style={styles.container}>
         <View style={styles.topBar}>
           { index === 0 ? <View style={{ width: 24, marginLeft: 24 }} /> :
@@ -66,6 +65,21 @@ export default function App() {
           initialLayout={{ width: layout.width }}
         />
       </SafeAreaView>
+    );
+  }
+
+  return (
+    <NavigationContainer>
+      <StatusBar
+        backgroundColor="white"
+        barStyle="light-content"
+      />
+      <SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
+      <Stack.Navigator>
+        <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="signup" component={Signup} />
+        <Stack.Screen name="main" component={MainScreen} />
+      </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: 'black' }} />
     </NavigationContainer>
   );
