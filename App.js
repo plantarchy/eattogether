@@ -75,7 +75,9 @@ export default function App() {
         barStyle="light-content"
       />
       <SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="main" screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="main" component={MainScreen} />
