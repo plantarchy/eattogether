@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topBar: {
-    height: "20",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
