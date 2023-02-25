@@ -16,16 +16,18 @@ import {
 
 const Login = props => {
   return (
+    // take in the list of friends and run a loop to display all of them in their own boxes?
     <View style={styles.container}>
-      <Text style={{ fontSize: 48, marginBottom: 32 }}>Friends</Text>
-      <TouchableOpacity onPress={() => {console.log("favorite")}} style={{...styles.button, backgroundColor: "#2BD55B", marginBottom: 16}}>
-        <Text style={{fontSize: 18, color: "#EEE"}}>Signup</Text>
-      
+      <TouchableOpacity onPress={() => {console.log("jerry")}} style={{...styles.user, marginTop: 20, backgroundColor: "#2BD55B", marginBottom: 16}}>
+        <Text style={{fontSize: 18, color: "#EEE"}}>Jerry</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {console.log("john")}} style={{...styles.user, backgroundColor: "#2BD55B", marginBottom: 16}}>
+        <Text style={{fontSize: 18, color: "#EEE"}}>John</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => {console.log("george")}} style={{...styles.user, backgroundColor: "#2BD55B", marginBottom: 16}}>
+        <Text style={{fontSize: 18, color: "#EEE"}}>George</Text>
       </TouchableOpacity>
       
-      <TouchableOpacity onPress={() => {console.log("add friend")}} style={styles.addfriend}>
-        <Text style={{fontSize: 18, color: "#EEE"}}>Login</Text>
-      </TouchableOpacity>
     </View>
   )
 }
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     display: "flex",
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    
+
     alignItems: "center",
     textAlign: "center",
     paddingBottom: 0.2 * DEVICE_HEIGHT
@@ -53,12 +55,11 @@ const styles = StyleSheet.create({
     y: DEVICE_HEIGHT * .1,
 
   }, 
-  button: {
+  user: {
     padding: 16,
     backgroundColor: "#666",
     width: DEVICE_WIDTH * 0.7,
     alignItems: "center",
-    textAlign: "center",
     borderRadius: 15,
     color: "#EEE"
   },
