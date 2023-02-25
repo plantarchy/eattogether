@@ -18,8 +18,8 @@ import Signup from './src/screens/Signup';
 import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
 // import TabHeader from './src/components/TabHeader';
+import { navigationRef } from './src/lib/navigation'
 import React, {useMemo} from 'react';
-
 
 const renderScene = SceneMap({
   home: Home,
@@ -73,7 +73,7 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <StatusBar
         backgroundColor="white"
         barStyle="light-content"
@@ -83,6 +83,7 @@ export default function App() {
         headerShown: false
       }}>
         <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="eat" component={Eat} />
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="main" component={MainScreen} />
       </Stack.Navigator>

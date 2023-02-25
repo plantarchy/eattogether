@@ -13,6 +13,7 @@ import {
   Keyboard,
   SafeAreaView
 } from 'react-native';
+import { navigationRef } from '../lib/navigation'
 
 const Home = props => {
   return (
@@ -20,9 +21,9 @@ const Home = props => {
       <TouchableOpacity onPress={() => {console.log("jerry")}} style={{...styles.user, marginTop: 20, backgroundColor: "#2BD55B", marginBottom: 16}}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Jerry</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => (props.navigation.replace("eat"))}>
+      <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
             <Image
-              source={require("D:\eatogether\eattogether\assets\eat.png")}
+              source={require("../../assets/eat.png")}
               style={{width: 24, height: 24, marginRight: 24 }}
             />
           </TouchableOpacity>
