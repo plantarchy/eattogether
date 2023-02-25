@@ -75,11 +75,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar
-        backgroundColor="white"
+        backgroundColor="#F2F2F2"
         barStyle="light-content"
       />
-      <SafeAreaView style={{ flex:0, backgroundColor: 'white' }} />
-      <Stack.Navigator initialRouteName="splash" screenOptions={{
+
+      <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
+      <Stack.Navigator initialRouteName="main" screenOptions={{
+
         headerShown: false
       }}>
         <Stack.Screen name="splash" component={Splash} />
@@ -87,7 +89,7 @@ export default function App() {
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="main" component={MainScreen} />
       </Stack.Navigator>
-      <SafeAreaView style={{ flex:0, backgroundColor: 'black' }} />
+      <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
     </NavigationContainer>
   );
 }
