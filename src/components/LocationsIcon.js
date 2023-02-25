@@ -18,13 +18,13 @@ import {
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
-const EatIcon = props => {
+const LocationsIcon = props => {
         
     return (
-        <View style={{...styles.eat}}> 
+        <View style={{...styles.locationsIcon}}> 
             <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
       <Image
-        source={require("../../assets/eat.png")}
+        source={require("../../assets/location-pin.png")}
         style={{...styles.eat, width: 100, height: 100}}  />
     </TouchableOpacity>
         </View>
@@ -33,19 +33,20 @@ const EatIcon = props => {
 // flex direction col then flex direction row to move it up and down
 
 const styles = StyleSheet.create({
-    eat: {
+    locationsIcon: {
         display: "flex",
         zIndex: 99,
         justifyContent: "center",
-        alignSelf: 'center',
-        bottom: DEVICE_HEIGHT/30,
+        alignSelf: 'flex-start',
+        bottom: DEVICE_HEIGHT/50,
         backgroundColor: 'transparent',
         position: 'absolute',
         color: 'white',
+        paddingLeft: (DEVICE_WIDTH/2) + 70,
         padding: 0,
         
       },
     
 
 })
-export default EatIcon
+export default LocationsIcon

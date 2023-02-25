@@ -16,7 +16,10 @@ import {
   StatusBar,
 } from 'react-native';
 import { navigationRef } from '../lib/navigation'
+
 import EatIcon from '../components/EatIcon';
+import FriendsIcon from '../components/FriendsIcon';
+import LocationsIcon from '../components/LocationsIcon';
 
 const Home = props => {
   let items = [];
@@ -32,18 +35,20 @@ const Home = props => {
     items.push(
       <View style={styles.feedItem}>
         <Text>{`${name}`}</Text>
-
       </View>
     )
   };
 
   return (
   <>
-   <View style={styles.container}>
+    <View style={styles.container}>
       <ScrollView style={{width: DEVICE_WIDTH}}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
       
     </View>
-    <EatIcon />
+    <View style={styles.southPanel}></View>
+    <EatIcon/>
+    <FriendsIcon/>
+    <LocationsIcon/>
   </>
   )
 }
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
   southPanel: {
     display: "flex",
     width: DEVICE_WIDTH,
-    height: 50,
+    height: 100,
     backgroundColor: "blue",
     justifyContent: "flex-end",
   },
