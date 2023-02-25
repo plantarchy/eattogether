@@ -64,13 +64,26 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   myFeedItem: {
+    isplay: "flex",
+    flexDirection: "row",
+    borderRadius: 15,
+    color: "#EEE",
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
     padding: 50,
-    width: DEVICE_WIDTH,
     backgroundColor: "red"
   },
   feedItem: {
+    display: "flex",
+    flexDirection: "row",
     padding: 50,
-    width: DEVICE_WIDTH,
+    borderRadius: 15,
+    color: "#EEE",
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
     backgroundColor: "green"
   }
   
