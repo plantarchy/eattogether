@@ -11,12 +11,34 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
-  SafeAreaView
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
 } from 'react-native';
 import { navigationRef } from '../lib/navigation'
 
 const Home = props => {
+  let items = [];
+  let names = ["Vincent", "Connor", "Murtuza", "Alvin", "Henry"];
+
+  items.push(
+    <View style={styles.myFeedItem}>
+      <Text>You</Text>
+    </View>
+  )
+
+  for (let name of names) {
+    items.push(
+      <View style={styles.feedItem}>
+        <Text>{`${name}`}</Text>
+
+      </View>
+    )
+  };
+
   return (
+
+   
     <View style={styles.container}>
       <TouchableOpacity onPress={() => {console.log("jerry")}} style={{...styles.user, marginTop: 20, backgroundColor: "#2BD55B", marginBottom: 16}}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Jerry</Text>
@@ -27,7 +49,14 @@ const Home = props => {
               style={{width: 24, height: 24, marginRight: 24 }}
             />
           </TouchableOpacity>
+
+    //<>
+    //<ScrollView>{items}</ScrollView>
+    //<View style={styles.southPanel}>
+      //<Text>FDOIJSH</Text>
+
     </View>
+    </>
   )
 }
 
@@ -42,14 +71,33 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     color: "#EEE"
   },
+  southPanel: {
+    display: "flex",
+    width: DEVICE_WIDTH,
+    height: 50,
+    backgroundColor: "blue",
+    justifyContent: "flex-end",
+  },
   container: {
     display: "flex",
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     textAlign: "center"
+  },
+  myFeedItem: {
+    padding: 50,
+    width: DEVICE_WIDTH,
+    backgroundColor: "red"
+  },
+  feedItem: {
+    padding: 50,
+    width: DEVICE_WIDTH,
+    backgroundColor: "green"
   }
+  
+
 });
 
 export default Home;

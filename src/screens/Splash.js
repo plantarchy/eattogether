@@ -19,10 +19,10 @@ const Login = props => {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 48, marginBottom: 32 }}>QuickEats</Text>
-      <TouchableOpacity onPress={() => {console.log("login")}} style={{...styles.button, backgroundColor: "#2BD55B", marginBottom: 16}}>
+      <TouchableOpacity onPress={() => {props.navigation.navigate("signup")}} style={{...styles.button, backgroundColor: "#2BD55B", marginBottom: 16}}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Signup</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {console.log("login")}} style={styles.button}>
+      <TouchableOpacity onPress={() => {props.navigation.navigate("login")}} style={styles.button}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Login</Text>
       </TouchableOpacity>
     </View>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    paddingBottom: 0.2 * DEVICE_HEIGHT
+    //paddingBottom: 0.2 * DEVICE_HEIGHT
   },
   button: {
     padding: 16,
