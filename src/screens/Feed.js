@@ -16,6 +16,7 @@ import {
   StatusBar,
 } from 'react-native';
 import { navigationRef } from '../lib/navigation'
+import EatIcon from '../components/EatIcon';
 
 const Home = props => {
   let items = [];
@@ -37,32 +38,20 @@ const Home = props => {
   };
 
   return (
-
-   
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => {console.log("jerry")}} style={{...styles.user, marginTop: 20, backgroundColor: "#2BD55B", marginBottom: 16}}>
-        <Text style={{fontSize: 18, color: "#EEE"}}>Jerry</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
-            <Image
-              source={require("../../assets/eat.png")}
-              style={{width: 24, height: 24, marginRight: 24 }}
-            />
-          </TouchableOpacity>
-
-    //<>
-    //<ScrollView>{items}</ScrollView>
-    //<View style={styles.southPanel}>
-      //<Text>FDOIJSH</Text>
-
+  <>
+   <View style={styles.container}>
+      <ScrollView style={{width: DEVICE_WIDTH}}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
+      
     </View>
-    </>
+    <EatIcon />
+  </>
   )
 }
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const styles = StyleSheet.create({
+  
   user: {
     padding: 16,
     backgroundColor: "#666",
@@ -87,7 +76,7 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   myFeedItem: {
-    isplay: "flex",
+    display: "flex",
     flexDirection: "row",
     borderRadius: 15,
     color: "#EEE",
