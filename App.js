@@ -15,6 +15,7 @@ import Home from './src/screens/Home';
 import Feed from './src/screens/Feed';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
+import FriendsTop from './src/screens/FriendsTop'
 // import TabHeader from './src/components/TabHeader';
 import React, {useMemo} from 'react';
 
@@ -22,6 +23,7 @@ import React, {useMemo} from 'react';
 const renderScene = SceneMap({
   home: Home,
   feed: Feed,
+  friendsTop: FriendsTop,
 });
 
 const Stack = createStackNavigator();
@@ -33,6 +35,7 @@ export default function App() {
   const [routes] = React.useState([
     { key: 'home', title: 'Home' },
     { key: 'feed', title: 'Feed' },
+    { key: 'friendsTop', title: 'FriendsTop' },
   ]);
 
   function MainScreen() {
