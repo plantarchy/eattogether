@@ -17,7 +17,9 @@ import {
 const Home = props => {
   return (
     <View style={styles.container}>
-      <Text> your mom gay </Text>
+    <TouchableOpacity onPress={() => {console.log("Eat")}} style = {{...styles.user, marginTop: 10, backgroundColor: "#2BD55B", marginLeft: "center"}}>
+      < Text style={{fontSize: 55, fontWeight: 'bold', color: "#EEE"}}>EAT</Text>
+    </TouchableOpacity>
     </View>
   )
 }
@@ -25,13 +27,25 @@ const Home = props => {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const styles = StyleSheet.create({
+  user: {
+    padding: 10,
+    backgroundColor: "#666",
+    width: DEVICE_WIDTH - 15,
+    height: "10%",
+    alignItems: "center",
+    borderRadius: 15,
+    color: "#EEE"
+  },
   container: {
     display: "flex",
+    zIndex: 99,
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    justifyContent: "center",
     alignItems: "center",
-    textAlign: "center"
+    textAlign: "center",
+    justifyContent: "flex-end",
+    alignSelf: 'flex-end',
+    bottom: "14%",
   }
 });
 
