@@ -25,7 +25,7 @@ const NewFriend = props => {
     return (
         
         <>
-        <View style={{...styles.background, backgroundColor: "#2BD55B",  marginBottom: 16}}>
+        <View style={{...styles.background, backgroundColor: "#666",  marginBottom: 16}}>
             <View style={{...styles.user}}>
                 <Text style={{fontSize: 25, color: "#EEE"}}>{props.name}</Text>
                 <Text style={{fontSize: 12, color: "#EEE", paddingLeft: 5}}>last ate 25 mins ago</Text>   
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     user: {
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "right",
         justifyContent: "center",
       },
     filledstar: {

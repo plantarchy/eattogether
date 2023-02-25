@@ -28,14 +28,18 @@ const FriendView = props => {
             <NewFriend name={friend}/>
         )
     }
+    
   return (
+// take in the list of friends and run a loop to display all of them in their own boxes?
 
-    // take in the list of friends and run a loop to display all of them in their own boxes?
+    <>
     <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>{items}</ScrollView>
+        <ScrollView style={styles.scrollView}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
         <AddFriend />
-
     </View>
+    </>
+    
+
   )
 }
 
@@ -54,7 +58,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     zIndex: 5,
-
+    height: DEVICE_HEIGHT,
   },
   addfriend: {
     padding: 10,
@@ -62,7 +66,6 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH * 0.2,
     height: DEVICE_HEIGHT * 0.1,
     color: "000000",
-    marginBottom: 20,
     x: DEVICE_WIDTH * .5,
     y: DEVICE_HEIGHT * .1,
 
