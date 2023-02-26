@@ -17,8 +17,8 @@ import {
 import { GlobalContext } from '../modules/GlobalContext';
 import { removeFriend } from '../database/user';
 
-const DEVICE_WIDTH = Dimensions.get("window").width;
-const DEVICE_HEIGHT = Dimensions.get("window").height;
+  const DEVICE_WIDTH = Dimensions.get("window").width;
+  const DEVICE_HEIGHT = Dimensions.get("window").height;
 
 const NewFriend = props => {
 
@@ -28,7 +28,6 @@ const NewFriend = props => {
   console.log("AAAA", props.friendID)
 
     return (
-
         <>
         <View style={{...styles.background, backgroundColor: "#666",  marginBottom: 16}}>
           <View style={{...styles.user}}>
@@ -56,8 +55,6 @@ const NewFriend = props => {
           </TouchableOpacity>
         </View>
         </>
-
-
       )
 }
 // flex direction col then flex direction row to move it up and down
