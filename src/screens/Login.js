@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -13,8 +13,48 @@ import {
   Keyboard,
   SafeAreaView
 } from 'react-native';
+import { EmailAuthProvider } from 'firebase/auth';
+import { loginUserEmailPassword } from '../database/auth';
+import { GlobalContext } from '../modules/GlobalContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { navigationRef } from '../lib/navigation';
+import { registerForPushNotificationsAsync, updateTokenInStore } from '../database/notifications'
 
 const Login = props => {
+  const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
+  const [validation, setValidation] = useState(["", ""]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = async () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    let validErrors = ["", "", "", ""];
+    let errors = false;
+    if (!reg.test(email)) {
+      validErrors[0] = "Invalid email"
+      errors = true;
+    }
+    setValidation(validErrors);
+
+    try {
+      const user = await loginUserEmailPassword(email, password);
+      setUser(user);
+      console.log("NEW USER", user);
+      await AsyncStorage.setItem("user", JSON.stringify(user));
+
+      let token = await AsyncStorage.getItem("pushToken")
+      if (token == null) token = await registerForPushNotificationsAsync();
+      await AsyncStorage.setItem("pushToken", token)
+      await updateTokenInStore(user.id, token)
+      setPushToken(token)
+
+      navigationRef.current?.navigate("main");
+    } catch (e) {
+      Alert.alert('Login Error', e.message);
+    }
+    // await AsyncStorage.setItem("credential", EmailAuthProvider.credential(email, password));
+  }
   return (
     <>
     <View style={styles.topBar}>
@@ -29,15 +69,23 @@ const Login = props => {
     </View>
     <View style={styles.container}>
       <Text style={{ fontSize: 48, marginBottom: 24 }}>Login</Text>
+      {
+        validation[0] ? <Text style={{ color: "red" }}>
+          {validation[0]}
+        </Text> : <></>
+      }
       <TextInput
-        style={{ ...styles.textInput, marginBottom: 16 }}
-        placeholder="Username"
+        style={{ ...styles.textInput, marginBottom: 16, ...(validation[0] ? { borderColor: "red", borderWidth: 2 } : {}) }}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
       />
       <TextInput
         style={{ ...styles.textInput, marginBottom: 16 }}
         placeholder="Password"
+        secureTextEntry={true}
+        onChangeText={(text) => setPassword(text)}
       />
-      <TouchableOpacity onPress={() => {console.log("login")}} style={styles.button}>
+      <TouchableOpacity onPress={() => (login())} style={styles.button}>
         <Text style={{fontSize: 18}}>Login</Text>
       </TouchableOpacity>
     </View>

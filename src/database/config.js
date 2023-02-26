@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+// import { getMessaging, getToken } from "firebase/messaging";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,5 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+// const messaging = getMessaging(app);
+// getToken(messaging, {vapidKey: "BKSvalh8robX38OyYLEOJt4iPTNflmN1yvTQOOIoYlrWhVwjyA74W-RXtaZY0TanZEhYeqmu1tWhu5c-K8QBBjU"})
 
-export { app, db };
+export { app, db, /* messaging */ };

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -13,6 +14,11 @@ import {
   Keyboard,
   SafeAreaView
 } from 'react-native';
+import { getUserData } from '../database/user'
+import { getAuth } from 'firebase/auth';
+import { GlobalContext }  from '../modules/GlobalContext';
+import { navigationRef } from '../lib/navigation';
+
 
 // comment
 const Login = props => {

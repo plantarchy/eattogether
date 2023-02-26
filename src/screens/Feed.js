@@ -35,6 +35,7 @@ const Home = props => {
     items.push(
       <View style={styles.feedItem}>
         <Text>{`${name}`}</Text>
+
       </View>
     )
   };
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: "green"
   }
-  
+
 
 });
 

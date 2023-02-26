@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -11,13 +11,57 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
-  SafeAreaView
+  SafeAreaView,
+  Button
 } from 'react-native';
+import { GlobalContext } from '../modules/GlobalContext';
+import { getUserFriends, addFriend, removeFriend } from '../database/user'
+import { getLocations } from '../database/locations'
+import { LOCATIONS, locationFromID } from '../lib/globals'
+import { sendPushNotification, notifyFriends } from '../database/notifications'
 
 const Home = props => {
+  const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
+  // console.log("PROVIDER", useContext(GlobalContext));
+  const [ locations, setLocations ] = useState([]);
+  const [ friends, setFriends ] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const locationsNew = await getLocations(locationFromID(user.location).value);
+      setLocations(locationsNew);
+      getUserFriends(user.id);
+    })()
+  }, [])
+
+  const updateFriends = async () => {
+    const friendsNew = await getUserFriends(user.id);
+    setFriends(friendsNew);
+  }
+
+  const addFriendE = async () => {
+    await addFriend({"name": "wang5528", ...user}, { "name": "wang5529", "id": "9PUDol6AayRZvsx7RkmT57WvGR92" })
+  }
+
+  const delFriendE = async () => {
+    await removeFriend(user.id, "9PUDol6AayRZvsx7RkmT57WvGR92")
+  }
+
   return (
     <View key={'har'} style={styles.container}>
-      <Text> your mom gay </Text>
+      <Text>{ JSON.stringify(user) }</Text>
+      <Text>{ JSON.stringify(locations) }</Text>
+      <Text>Friends: { JSON.stringify(friends) }</Text>
+      <Button title="Check friends" onPress={updateFriends}/>
+      <Button title="Add friend" onPress={addFriendE}/>
+      <Button title="Remove Friend" onPress={delFriendE}/>
+      <Button
+        title="Press to Send Notification"
+        onPress={async () => {
+          console.log("SEND", pushToken)
+          await notifyFriends(await getUserFriends(user.id));
+        }}
+      />
     </View>
   )
 }
