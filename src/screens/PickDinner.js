@@ -13,10 +13,10 @@ import {
   Keyboard,
   SafeAreaView
 } from 'react-native';
-import NewLocation from '../components/LocationObjects.js';
+import PickNewLocation from '../components/PickLocationObjects';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const LocationView = props => {
+const PickDinner = props => {
     let itemsFav = []
     let itemsReg = []
 
@@ -27,7 +27,7 @@ const LocationView = props => {
     for (let location of locations) {
         // items is a list of objects with the friends names
         itemsReg.push(
-            <NewLocation key={`${location}`} name={location} favor={false}/>
+            <PickNewLocation key={`${location}`} name={location} favor={false}/>
         )
     }
     //<View style={{borderBottomColor: "#CCCCCC", borderBottomWidth: 1}}></View>
@@ -35,7 +35,7 @@ const LocationView = props => {
     for (let fav of favs) {
         // items is a list of objects with the friends names
         itemsFav.push(
-            <NewLocation key={`${fav}`} name={fav} favor={true}/>
+            <PickNewLocation key={`${fav}`} name={fav} favor={true}/>
         )
     }
     
@@ -56,7 +56,7 @@ const LocationView = props => {
     </View>
     <View style={styles.container}>
         <ScrollView style={styles.scrollView}>{itemsReg}<View style={{borderBottomColor: "#CCCCCC", borderBottomWidth: 5, marginBottom: 12}}></View>{itemsFav}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
-        <NewLocation />
+        <PickNewLocation />
     </View>
     </>
     
@@ -108,4 +108,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LocationView;
+export default PickDinner;

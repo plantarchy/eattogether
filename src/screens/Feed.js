@@ -19,7 +19,7 @@ import { navigationRef } from '../lib/navigation'
 
 import EatIcon from '../components/EatIcon';
 import FriendsIcon from '../components/FriendsIcon';
-import LocationsIcon from '../components/LocationsIcon';
+import LocationsIcon from '../components/FavLocationsIcon';
 import FeedItem from '../components/FeedItem';
 
 const Home = props => {

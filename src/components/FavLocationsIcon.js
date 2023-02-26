@@ -22,7 +22,7 @@ const LocationsIcon = props => {
         
     return (
         <View style={{...styles.locationsIcon}}> 
-            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("location"))}>
+            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("invitefriends"))}>
       <Image
         defaultSource={require("../../assets/location.png")}
         style={{...styles.locationsIcon, width: 1, height: 90}}  />

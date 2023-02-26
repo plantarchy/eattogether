@@ -11,7 +11,6 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import Home from './src/screens/Home';
 import Feed from './src/screens/Feed';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
@@ -19,7 +18,9 @@ import Splash from './src/screens/Splash';
 import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
 import Presets from './src/screens/Presets'
-import Locations from './src/screens/Locations'
+import Locations from './src/screens/FavLocations'
+import PickDinner from './src/screens/PickDinner';
+import InviteFriends from './src/screens/InviteFriends';
 
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
@@ -158,9 +159,10 @@ function App() {
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="eat" component={Eat} />
         <Stack.Screen name="signup" component={Signup} />
-
         <Stack.Screen name="friendsTop" component={FriendsTop} />
         <Stack.Screen name="location" component={Locations} />
+        <Stack.Screen name="pickdinner" component={PickDinner} />
+        <Stack.Screen name="invitefriends" component={InviteFriends} />
 
       </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
