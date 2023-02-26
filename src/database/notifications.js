@@ -25,7 +25,7 @@ export async function sendPushNotification(expoPushToken, data) {
     to: expoPushToken,
     sound: 'default',
     title: 'EatWithMe!',
-    body: 'And here is the body!',
+    body: `${data.person} is eating at ${data.place}.`,
     data,
   };
 
