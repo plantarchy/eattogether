@@ -40,8 +40,6 @@ const InviteFriends = props => {
         )
     }
 
-
-
     return (
         // take in the list of friends and run a loop to display all of them in their own boxes?
         <>
@@ -52,8 +50,18 @@ const InviteFriends = props => {
                         style={{ width: 24, height: 24, marginLeft: 24 }}
                     />
                 </TouchableOpacity>
-                <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Invite</Text>
-                <View style={{ width: 24, marginRight: 24 }} />
+                <Text style={{ fontSize: 24, marginLeft: DEVICE_WIDTH / 4 - 2, marginRight: "auto", }}>Invite to Eat</Text>
+                <View style={{ width: 24, marginRight: 6 }} />
+                <TouchableOpacity onPress={() => {const sendData = props => {
+                    // sends the list to the server
+                    
+                }}}>
+                    <Image
+                        source={require("../../assets/submitIcon.png")}
+                        style={{ width: 27, height: 27, marginRight: 20}}
+                    />
+                    {/* <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: 15 }}>Submit</Text> */}
+                </TouchableOpacity>
             </View>
             <View style={styles.container}>
                 <ScrollView style={styles.scrollView}>{itemsReg}<View style={{ borderBottomColor: "#CCCCCC", borderBottomWidth: 3, marginBottom: 12 }}></View>{itemsFav}<View style={{ height: DEVICE_HEIGHT / 4 }}></View></ScrollView>

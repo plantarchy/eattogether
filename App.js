@@ -21,6 +21,7 @@ import Presets from './src/screens/Presets'
 import Locations from './src/screens/FavLocations'
 import PickDinner from './src/screens/PickDinner';
 import InviteFriends from './src/screens/InviteFriends';
+import Search from './src/screens/SearchTab'
 
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
@@ -163,6 +164,7 @@ function App() {
         <Stack.Screen name="location" component={Locations} />
         <Stack.Screen name="pickdinner" component={PickDinner} />
         <Stack.Screen name="invitefriends" component={InviteFriends} />
+        <Stack.Screen name="search" component={Search} />
 
       </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />

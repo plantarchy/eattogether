@@ -50,7 +50,8 @@ const FriendView = props => {
     </View>
     <View style={styles.container}>
         <ScrollView style={styles.scrollView}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
-        <AddFriend />
+        <AddFriend /> 
+        {/* brings plus button^ */}
     </View>
     </>
     

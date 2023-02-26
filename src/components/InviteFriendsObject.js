@@ -17,15 +17,23 @@ import {
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
-
+let addedUsers = []
 const InviteNewFriends = props => {
-    let selected = false
-    let addedUsers = []
+    
+    const [selected, setSelected] = useState(false);
+
     return (
         <>
-
             {/* need to toggle to get rid of name when removed */}
-            <TouchableOpacity onPress={() => addedUsers.push(props.name)}>
+            <TouchableOpacity onPress={() => {const doThis = props => {
+                if (selected) {
+                    addedUsers.push(props.name)
+                } else {
+                    addedUsers.pop(props.name)
+                }}
+                
+                setSelected(!selected)
+            }}>
                 <View style={{ ...styles.background, backgroundColor: "#666", marginBottom: 16 }}>
                             <Text style={{ fontSize: 25, color: "#EEE" }}>{props.name}</Text>
                             <Image
@@ -33,12 +41,16 @@ const InviteNewFriends = props => {
                             source={selected ? require("../../assets/remove.png") : require("../../assets/addFriend.png")}
                             style={{ width: 40, height: 40, marginLeft: "auto" }}
                             />
+                            
+                            
                 </View>
             </TouchableOpacity>
 
 
         </>
+        
     )
+    
 }
 // flex direction col then flex direction row to move it up and down
 
