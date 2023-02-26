@@ -14,8 +14,17 @@ import {
   SafeAreaView
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import ModalSelector from 'react-native-modal-selector';
 
 const Eat = props => {
+  const [ location, setLocation ] = useState(0)
+  const locations = [
+    "Any Location",
+    "Hillenbrand",
+    "Wiley",
+    "Hillenbrand",
+    "Hillenbrand",
+  ]
   return (
   <>
    <SafeAreaView style={{...styles.container}} >
@@ -29,16 +38,20 @@ const Eat = props => {
       <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Eat</Text>
       <View style={{width: 24, marginRight: 24 }} />
     </View>
-    <ScrollView style = {{...styles.scroll}}>  
+    <ScrollView style = {{...styles.scroll}}>
     <View>
-    < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>Location</Text>    
+    < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>Location</Text>
     </View>
-      <TouchableOpacity onPress={() => {console.log("default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A"}}>
+      <ModalSelector
+        data={locations}
+        initValue="Select Location..."
+        onChange={(option)=>{ setLocation(option.key) }} >
+        <TextInput
+          style={{ ...styles.default, marginTop: 10, backgroundColor: "#F23F8A", fontSize: 25, fontWeight: "bold", color: "#EEE", textAlign: "center"}}
+          editable={false}
+          value={locations[location]} />
+      </ModalSelector>
       < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ANY-DEFAULT</Text>
-     </TouchableOpacity>
-    <TouchableOpacity onPress={() => {console.log("Select...")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>Select...</Text>
-    </TouchableOpacity>
       <View>
       < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>People</Text>
       </View>
@@ -108,7 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     color: "#EEE",
   },
-  
+
   container: {
     display: "flex",
     zIndex: 99,
@@ -127,6 +140,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#CCCCCC",
     borderBottomWidth: 1,
     top: DEVICE_HEIGHT * 0.13,
+    width: DEVICE_WIDTH,
     paddingBottom: 8,
     //paddingTop: 12,
   }
