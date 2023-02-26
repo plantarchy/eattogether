@@ -20,13 +20,24 @@ import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
 import Presets from './src/screens/Presets'
 
-
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
-import React, {useEffect, useMemo, useContext, useState} from 'react';
+import React, {useEffect, useMemo, useContext, useState, useRef} from 'react';
 import { getAuth, reauthenticateWithCredential } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GlobalContext, GlobalProvider } from './src/modules/GlobalContext'
+import { sendPushNotification, registerForPushNotificationsAsync, updateTokenInStore } from './src/database/notifications';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+
 
 const renderScene = SceneMap({
   home: Home,
@@ -37,8 +48,58 @@ const renderScene = SceneMap({
 
 const Stack = createStackNavigator();
 
-export default function App() {
+async function runAuth() {
+  const uid = getAuth().currentUser?.uid;
+  if (uid == null) {
+    return null;
+  } else {
+    return await getUserData(uid);
+  }
+  // if (user == null || authToken == null) return null;
+  // try {
+  //   return await reauthenticateWithCredential(user, authToken);
+  // } catch (e) {
+  //   return null;
+  // }
+}
+
+function App() {
   const layout = useWindowDimensions();
+
+
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  const { user, setUser } = useContext(GlobalContext);
+  const {pushToken, setPushToken} = useContext(GlobalContext);
+  useEffect(() => {
+    (async () => {
+      const user = await runAuth();
+      console.log(user)
+      if (user == null) {
+        return;
+      } else {
+        setUser(user);
+        navigationRef.current?.navigate("main")
+      }
+      let token = await AsyncStorage.getItem("pushToken")
+      if (token == null) token = await registerForPushNotificationsAsync();
+      await AsyncStorage.setItem("pushToken", token)
+      await updateTokenInStore(user.id, token)
+      setPushToken(token)
+    })();
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -82,7 +143,6 @@ export default function App() {
   }
 
   return (
-    <GlobalProvider>
     <NavigationContainer ref={navigationRef}>
       <StatusBar
         backgroundColor="#F2F2F2"
@@ -102,7 +162,6 @@ export default function App() {
       </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
     </NavigationContainer>
-    </GlobalProvider>
   );
 }
 
@@ -121,3 +180,9 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   }
 });
+
+export default () => (
+  <GlobalProvider>
+    <App />
+  </GlobalProvider>
+)

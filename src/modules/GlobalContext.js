@@ -6,10 +6,12 @@ export const GlobalContext = createContext();
 
 export const GlobalProvider = (props) => {
   const [user, setUser] = useState({});
+  const [pushToken, setPushToken] = useState({});
   return (
     <GlobalContext.Provider
       value={{
-        user, setUser
+        user, setUser,
+        pushToken, setPushToken
       }}
     >
       {props.children}

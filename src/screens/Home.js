@@ -18,9 +18,11 @@ import { GlobalContext } from '../modules/GlobalContext';
 import { getUserFriends, addFriend, removeFriend } from '../database/user'
 import { getLocations } from '../database/locations'
 import { LOCATIONS, locationFromID } from '../lib/globals'
+import { sendPushNotification, notifyFriends } from '../database/notifications'
 
 const Home = props => {
   const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
   // console.log("PROVIDER", useContext(GlobalContext));
   const [ locations, setLocations ] = useState([]);
   const [ friends, setFriends ] = useState([]);
@@ -53,6 +55,13 @@ const Home = props => {
       <Button title="Check friends" onPress={updateFriends}/>
       <Button title="Add friend" onPress={addFriendE}/>
       <Button title="Remove Friend" onPress={delFriendE}/>
+      <Button
+        title="Press to Send Notification"
+        onPress={async () => {
+          console.log("SEND", pushToken)
+          await notifyFriends(await getUserFriends(user.id));
+        }}
+      />
     </View>
   )
 }

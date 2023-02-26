@@ -18,9 +18,11 @@ import { loginUserEmailPassword } from '../database/auth';
 import { GlobalContext } from '../modules/GlobalContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { navigationRef } from '../lib/navigation';
+import { registerForPushNotificationsAsync, updateTokenInStore } from '../database/notifications'
 
 const Login = props => {
   const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
   const [validation, setValidation] = useState(["", ""]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +42,13 @@ const Login = props => {
       setUser(user);
       console.log("NEW USER", user);
       await AsyncStorage.setItem("user", JSON.stringify(user));
+
+      let token = await AsyncStorage.getItem("pushToken")
+      if (token == null) token = await registerForPushNotificationsAsync();
+      await AsyncStorage.setItem("pushToken", token)
+      await updateTokenInStore(user.id, token)
+      setPushToken(token)
+
       navigationRef.current?.navigate("main");
     } catch (e) {
       Alert.alert('Login Error', e.message);

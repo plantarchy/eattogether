@@ -19,37 +19,9 @@ import { getAuth } from 'firebase/auth';
 import { GlobalContext }  from '../modules/GlobalContext';
 import { navigationRef } from '../lib/navigation';
 
-async function runAuth() {
-  const uid = getAuth().currentUser?.uid;
-  if (uid == null) {
-    return null;
-  } else {
-    return await getUserData(uid);
-  }
-  // if (user == null || authToken == null) return null;
-  // try {
-  //   return await reauthenticateWithCredential(user, authToken);
-  // } catch (e) {
-  //   return null;
-  // }
-}
 
 // comment
 const Login = props => {
-  const { user, setUser } = useContext(GlobalContext);
-  useEffect(() => {
-    (async () => {
-      const user = await runAuth();
-      console.log(user)
-      if (user == null) {
-        return;
-      } else {
-        setUser(user);
-        navigationRef.current?.navigate("main")
-      }
-    })();
-  }, []);
-
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 48, marginBottom: 32 }}>EatWithMe</Text>

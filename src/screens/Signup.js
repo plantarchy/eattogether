@@ -23,10 +23,12 @@ import { createUserEmailPassword } from '../database/auth';
 import { GlobalContext }  from '../modules/GlobalContext';
 import { navigationRef } from '../lib/navigation';
 import {LOCATIONS} from '../lib/globals';
+import { registerForPushNotificationsAsync, updateTokenInStore } from '../database/notifications'
 
 const Signup = props => {
   const { onSignup } = props;
   const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
   const locations = LOCATIONS;
 
   const [validation, setValidation] = useState(["", "", "", ""]);
@@ -57,6 +59,13 @@ const Signup = props => {
       const user = await createUserEmailPassword(email, password, location);
       setUser(user);
       console.log("NEW USER", user);
+
+      let token = await AsyncStorage.getItem("pushToken")
+      if (token == null) token = await registerForPushNotificationsAsync();
+      await AsyncStorage.setItem("pushToken", token)
+      await updateTokenInStore(user.id, token)
+      setPushToken(token)
+
       navigationRef.current?.navigate("main");
     } catch (e) {
       Alert.alert("Signup Error", e.message);
