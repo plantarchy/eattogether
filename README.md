@@ -1,4 +1,4 @@
-# dinetogether
+# EatWithMe
 
 
 

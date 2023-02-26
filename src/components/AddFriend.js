@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
         zIndex: 99,
         justifyContent: "flex-end",
         alignSelf: 'flex-end',
-        bottom: 48,
+        bottom: 90,
         backgroundColor: 'transparent',
         position: 'absolute',
-        paddingRight: 15
+        paddingRight: 50
     }
 
 })
