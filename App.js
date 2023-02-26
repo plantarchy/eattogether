@@ -18,7 +18,11 @@ import Splash from './src/screens/Splash';
 import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
 import Presets from './src/screens/Presets'
-import Locations from './src/screens/Locations'
+import Locations from './src/screens/FavLocations'
+import PickDinner from './src/screens/PickDinner';
+import InviteFriends from './src/screens/InviteFriends';
+import AddFriends from './src/screens/AddFriends';
+// import Search from './src/screens/SearchTab'
 
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
@@ -28,6 +32,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GlobalContext, GlobalProvider } from './src/modules/GlobalContext'
 import { sendPushNotification, registerForPushNotificationsAsync, updateTokenInStore } from './src/database/notifications';
 import * as Notifications from 'expo-notifications';
+import { getLocations } from './src/database/locations'
+import {locationFromID} from './src/lib/globals';
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -71,6 +78,7 @@ function App() {
   const responseListener = useRef();
 
   const { user, setUser } = useContext(GlobalContext);
+  const { locations, setLocations } = useContext(GlobalContext);
   const {pushToken, setPushToken} = useContext(GlobalContext);
   useEffect(() => {
     (async () => {
@@ -87,6 +95,16 @@ function App() {
       await AsyncStorage.setItem("pushToken", token)
       await updateTokenInStore(user.id, token)
       setPushToken(token)
+
+      // fetch location
+      const locations = [
+        "uiuc",
+        "purdue",
+        "uic",
+        "uiuc",
+        "uiuc",
+      ]
+      setLocations(await getLocations(locationFromID(user.location)));
     })();
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
@@ -159,6 +177,9 @@ function App() {
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="friendsTop" component={FriendsTop} />
         <Stack.Screen name="location" component={Locations} />
+        <Stack.Screen name="pickdinner" component={PickDinner} />
+        <Stack.Screen name="invitefriends" component={InviteFriends} />
+        <Stack.Screen name="addFriends" component={AddFriends} />
 
       </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />

@@ -14,14 +14,17 @@ import {
   SafeAreaView
 
   } from 'react-native';
+  import { navigationRef } from '../lib/navigation'
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
+
+
 const AddFriend = props => {
-        
+
     return (
-        <View style={{...styles.addButton}}> 
-            <TouchableOpacity onPress={() => {console.log("add friend")}} style={{marginLeft: "auto"}}>
+        <View style={{...styles.addButton}}>
+            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("addFriends"))} style={{marginLeft: "auto"}}>
                 <Image
                 defaultSource={require("../../assets/addFriend.png")}
                 style={{...styles.addButton, width: 100, height: 100 }}

@@ -46,6 +46,7 @@ const FriendView = props => {
   }
 
   return (
+<<<<<<< HEAD
     // take in the list of friends and run a loop to display all of them in their own boxes?
       <>
         <View style={styles.topBar}>
@@ -70,6 +71,33 @@ const FriendView = props => {
         </View>
       </>
 
+=======
+// take in the list of friends and run a loop to display all of them in their own boxes?
+    <>
+    <View style={styles.topBar}>
+      <TouchableOpacity onPress={() => props.navigation.goBack()}>
+        <Image
+          source={require("../../assets/left-arrow.png")}
+          style={{width: 24, height: 24, marginLeft: 24 }}
+        />
+      </TouchableOpacity>
+      
+      <Text style={{ paddingLeft: 5, fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Friends</Text>
+      <TouchableOpacity onPress={( ) => props.navigation.goBack()}>
+        <Image
+          source={require("../../assets/find.png")}
+          style={{width: 24, height: 24, marginRight: 24 }}
+        />
+      </TouchableOpacity>
+    </View>
+    <View style={styles.container}>
+        <ScrollView style={styles.scrollView}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
+        <AddFriend /> 
+        {/* brings plus button^ */}
+    </View>
+    </>
+    
+>>>>>>> origin/newg
 
   )
 }
@@ -99,16 +127,6 @@ const styles = StyleSheet.create({
   scrollView: {
     zIndex: 5,
     height: DEVICE_HEIGHT,
-  },
-  addfriend: {
-    padding: 10,
-    backgroundColor: "#66CB6A", // 102 203 106
-    width: DEVICE_WIDTH * 0.2,
-    height: DEVICE_HEIGHT * 0.1,
-    color: "000000",
-    x: DEVICE_WIDTH * .5,
-    y: DEVICE_HEIGHT * .1,
-
   },
   user: {
     display: "flex",

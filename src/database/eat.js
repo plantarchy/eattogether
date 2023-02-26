@@ -14,6 +14,37 @@ import {getUserFriends} from './user.js';
  *  ]
  * }
  */
+let currentEatsCallback = null;
+export async function getCurrentEats(uid, callback) {
+    const eats = query(collection(db, 'eats'), where("ownerID", "==", uid));
+    const eatsJSON = [];
+    const eatsDocs = await getDocs(eats);
+    eatsDocs.forEach((doc) => {
+        eatsJSON.push({
+            id: doc.id,
+            ...doc.data()
+        })
+    })
+    if (currentEatsCallback == null) {
+        currentEatsCallback = onSnapshot(query(collection(db, 'eats'), where('ownerID', "==", uid)), (snap) => {
+            console.log("BEGIN UPDATE", uid)
+            const feedItems = [];
+            snap.forEach((doc) => {
+                const data = doc.data();
+                console.log("GET DATA", data)
+                feedItems.push({
+                    "id": doc.id,
+                    ...data
+                });
+            });
+            if (callback != null) {
+                console.log(uid, feedItems)
+                callback(feedItems)
+            }
+        });
+    }
+    return eatsJSON;
+}
 
 let eatsCallback = null;
 export async function listEats(uid, callback) {
@@ -40,6 +71,7 @@ export async function listEats(uid, callback) {
                 });
             });
             if (callback != null) {
+                console.log(uid, feedItems)
                 callback(feedItems)
             }
         });

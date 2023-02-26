@@ -13,6 +13,21 @@ import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, u
  * }
  */
 
+export async function getUsers() {
+    const users = query(collection(db, 'users'));
+    const usersJSON = [];
+    const usersDocs = await getDocs(users);
+    usersDocs.forEach((doc) => {
+        usersJSON.push({
+            id: doc.id,
+            ...doc.data()
+        })
+    })
+
+    console.log("USERJSON", usersJSON)
+
+    return usersJSON;
+}
 
 export async function getUserData(uid) {
     const userDoc = await getDoc(doc(db, 'users', uid));
@@ -62,7 +77,7 @@ export async function addFriend(you, them) {
         name: them.name,
     });
     await setDoc(doc(db, 'users', them.id, "friends", you.id), {
-        name: them.name,
+        name: you.name,
     });
     return true;
 }

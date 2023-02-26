@@ -15,15 +15,19 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import ModalSelector from 'react-native-modal-selector';
-import { listEats, addEat } from '../database/eat';
+import { getCurrentEats, listEats, addEat, deleteEat } from '../database/eat';
 import {getUserFriends} from '../database/user';
+import { notifyFriends } from '../database/notifications';
+import {navigationRef} from '../lib/navigation';
 import { GlobalContext } from '../modules/GlobalContext';
+import { addedUsers } from '../components/InviteFriendsObject';
 
 const Eat = props => {
   const [ timeOffset, setTimeOffset ] = useState(0);
   const [ location, setLocation ] = useState(0)
   const { user, setUser } = useContext(GlobalContext);
   const [ feedItems, setFeedItems ] = useState([]);
+  const [ useCustomInvites, setUseCustomInvites ] = useState(false);
   const offsets = [
     0,
     5,
@@ -31,12 +35,12 @@ const Eat = props => {
   ];
   const locations = [
     {label: 'ANY - Default', key: 0 },
-    {label: 'Hillenbrand', key: 1 },
-    {label: 'Wiley', key: 2, },
-    {label: 'Ford', key: 3, },
-    {label: 'Windsor', key: 4, },
-    {label: 'Earhart', key: 5, },
+    {label: 'Ikenberry', key: 1 },
+    {label: 'Lincoln/Allen', key: 2, },
+    {label: 'PAR', key: 3, },
+    {label: 'LAR', key: 4, },
   ];
+
 
 
   const submit = async () => {
@@ -44,12 +48,50 @@ const Eat = props => {
     if (location === 0) {
       processedLocation = "ANYWHERE"
     }
-    console.log(user)
-    await addEat(user.name, {
-      location: processedLocation,
-      offset: offsets[timeOffset],
-      people: await getUserFriends(user.id)
-    })
+
+    console.log(user);
+    const currentEats = await getCurrentEats(user.id, () => {});
+    console.log("CRURENT", currentEats);
+    for (let eat of currentEats) {
+      deleteEat(eat.id)
+    }
+
+    if (useCustomInvites) {
+      const pfriends = addedUsers;
+      await addEat(user.name, {
+        ownerID: user.id,
+        location: processedLocation,
+        offset: offsets[timeOffset],
+        people: pfriends
+      });
+      await notifyFriends(pfriends, {
+        name: user.name,
+        ownerID: user.id,
+        location: processedLocation,
+        offset: offsets[timeOffset],
+        people: pfriends
+      });
+    } else {
+      const pfriends = (await getUserFriends(user.id)).map((obj) => (obj.id))
+      await addEat(user.name, {
+        ownerID: user.id,
+        location: processedLocation,
+        offset: offsets[timeOffset],
+        people: pfriends
+      });
+      await notifyFriends(pfriends, {
+        name: user.name,
+        ownerID: user.id,
+        location: processedLocation,
+        offset: offsets[timeOffset],
+        people: pfriends
+      });
+    }
+  }
+
+  const openCustomInvites =  async () => {
+    navigationRef.current?.navigate("invitefriends", { })
+    setUseCustomInvites(true);
   }
 
   return (
@@ -82,11 +124,15 @@ const Eat = props => {
       <View>
       < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>People</Text>
       </View>
-      <TouchableOpacity onPress={() => {console.log("default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ALL FRIENDS - Default</Text>
+      <TouchableOpacity
+        onPress={() => {setUseCustomInvites(false)}}
+        style={{...styles.default, marginTop: 10, backgroundColor: useCustomInvites ? "grey" : "#F23F8A"}}>
+      <Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ALL FRIENDS - Default</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={() => {console.log("Select...")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>SELECT...</Text>
+    <TouchableOpacity
+      onPress={() => {openCustomInvites()}}
+      style={{...styles.grey_box, marginTop: 10, backgroundColor: useCustomInvites ? "#F23F8A" : "grey"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>{useCustomInvites ? "CUSTOM" : "SELECT..."}</Text>
     </TouchableOpacity>
     <View>
       <Text style={{...styles.location, marginTop: 24, fontSize: 25, fontWeight: 'bold', color: "black"}}>Time</Text>

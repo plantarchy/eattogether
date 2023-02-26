@@ -9,13 +9,15 @@ export const GlobalProvider = (props) => {
   const [friends, setFriends] = useState([]);
   const [pushToken, setPushToken] = useState({});
   const [myEvent, setMyEvent] = useState({});
+  const [locations, setLocations] = useState([]);
   return (
     <GlobalContext.Provider
       value={{
         user, setUser,
         friends, setFriends,
         pushToken, setPushToken,
-        myEvent, setMyEvent
+        myEvent, setMyEvent,
+        locations, setLocations
       }}
     >
       {props.children}

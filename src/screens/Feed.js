@@ -16,34 +16,75 @@ import {
   StatusBar,
 } from 'react-native';
 import { navigationRef } from '../lib/navigation'
-import { listEats } from '../database/eat'
+import { getCurrentEats, listEats } from '../database/eat'
 
 import EatIcon from '../components/EatIcon';
 import FriendsIcon from '../components/FriendsIcon';
-import LocationsIcon from '../components/LocationsIcon';
+import LocationsIcon from '../components/FavLocationsIcon';
 import FeedItem from '../components/FeedItem';
 import { GlobalContext } from '../modules/GlobalContext'
+import { deleteEat } from '../database/eat'
+import { sendPushNotificationUser } from '../database/notifications'
 
 const Feed = props => {
   const { user, setUser } = useContext(GlobalContext);
+  const [ currentEats, setCurrentEats ] = useState([]);
   const [ feedItems, setFeedItems ] = useState([]);
 
   let items = [];
   useEffect(() => {
     (async () => {
+      setCurrentEats(await getCurrentEats(user.id, setCurrentEats));
       setFeedItems(await listEats(user.id, setFeedItems));
     })()
   }, [])
 
-  if (feedItems.length > 0) {
+  const handleCurrentFeedClick = async (eatID) => {
+    Alert.alert(
+      'Cancel or end meal session?',
+      'You can configure a new one using the Eat button.',
+      [ { text: 'Cancel', style: 'cancel', },
+      {
+        text: 'OK',
+        style: "destructive",
+        onPress: () => {
+          console.log("DELETING", eatID)
+          deleteEat(eatID)
+        }
+      },
+      ]
+    );
+  }
+
+  for (let i = 0; i < currentEats.length; i++) {
+    console.log("agwiohag", currentEats)
     items.push(
-      <FeedItem key={0} person={feedItems[0]} bgColor={'#F23F8A'}/>
+      <FeedItem
+        key={-i}
+        person={currentEats[0]}
+        eatID={currentEats[0].id}
+        bgColor={'#F23F8A'}
+        onClick={handleCurrentFeedClick}
+      />
     )
   }
 
-  for (let i = 1; i < feedItems.length; i++) {
+  for (let i = 0; i < feedItems.length; i++) {
     items.push(
-      <FeedItem key={i} person={feedItems[i]} bgColor={'#2BD55B'}/>
+      <FeedItem
+        key={i}
+        eatID={feedItems[i].id}
+        person={feedItems[i]}
+        bgColor={'#2BD55B'}
+        onClick={(eatID, person) => {
+          sendPushNotificationUser(person.ownerID, {
+            sound: 'default',
+            title: 'EatWithMe!',
+            body: `${user.name} will be joining you to eat.`,
+            data: {}
+          })
+        }}
+      />
     )
   };
 

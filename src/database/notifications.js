@@ -9,24 +9,43 @@ export async function updateTokenInStore(uid, token) {
 }
 
 export async function notifyFriends(friends, info) {
+  console.log("NOTIFY FREINDS!")
   for (let friend of friends) {
-    const user = await getDoc(doc(db, "users", friend.id));
+    const user = await getDoc(doc(db, "users", friend));
     if (!user.exists()) {
       throw new Error("No user :(")
     }
     const data = user.data();
-    console.log(data);
-    sendPushNotification(data.token, info)
+    console.log("NOTF", data);
+    sendEatNotification(data.token, info)
   }
 }
 
-export async function sendPushNotification(expoPushToken, data) {
+export async function sendEatNotification(expoPushToken, data) {
   const message = {
     to: expoPushToken,
     sound: 'default',
     title: 'EatWithMe!',
-    body: `${data.owner} is eating at ${data.location} in ${data.offset} minutes.`,
+    body: `${data.name} is eating at ${data.location} in ${data.offset} minutes.`,
     data,
+  };
+
+  return await sendPushNotification(expoPushToken, message);
+}
+
+export async function sendPushNotificationUser(id, msg) {
+  const user = await getDoc(doc(db, "users", id));
+  if (!user.exists()) {
+    throw new Error("No user :(")
+  }
+  const data = user.data();
+  return await sendPushNotification(data.token, msg)
+}
+
+export async function sendPushNotification(expoPushToken, msg) {
+  const message = {
+    to: expoPushToken,
+    ...msg
   };
 
   console.log("SEND", message)

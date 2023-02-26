@@ -19,26 +19,28 @@ const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 
 const NewLocation = props => {
+    const [starChecked, setStarChecked] = useState(false);
     
     return (
-        
         <>
-        <TouchableOpacity>
             <View style={{...styles.background, backgroundColor: "#666",  marginBottom: 16}}>
             <View style={{...styles.user}}>
                 <Text style={{fontSize: 25, color: "#EEE"}}>{props.name}</Text>
             </View>
+            <View style={{...styles.filledstar}}>   
+            <TouchableOpacity>
 
-            <View style={{...styles.filledstar}}>    
                         <Image
                         defaultSource={require("../../assets/emptyStar.png")}
-                        source={props.favor ? require("../../assets/emptyStar.png") : require("../../assets/filledStar.png")}
+                        source={starChecked ? require("../../assets/filledStar.png") : require("../../assets/emptyStar.png")}
                         style={{width: 40, height: 40, marginLeft: DEVICE_WIDTH * 0.2 }}
                         />
+                        </TouchableOpacity>
             </View>
+            
         </View>
 
-        </TouchableOpacity>
+       
        
         </>
         

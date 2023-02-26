@@ -23,17 +23,17 @@ const DEVICE_HEIGHT = Dimensions.get("window").height;
 const Post = props => {
 
   return (
-  <>
-  <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))} style={{...styles.feedItem, backgroundColor: props.bgColor}}>
-    <View style={{flexDirection: 'row'}}>
-      <Text style={styles.text}>{`${props.person.owner}`}</Text>
-      <View style={{flexGrow: 1}}>
-        <Text style={{...styles.text, alignSelf: 'flex-end'}}>{props.person.offset ? ("in " + props.person.offset + " minutes") : "Now"}</Text>
-      </View>
-    </View>
-    <Text style={styles.text}>{props.person.location}</Text>
-  </TouchableOpacity>
-  </>
+    <>
+      <TouchableOpacity onPress={() => props.onClick(props.eatID, props.person)} style={{...styles.feedItem, backgroundColor: props.bgColor}}>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.text}>{`${props.person.owner}`}</Text>
+          <View style={{flexGrow: 1}}>
+            <Text style={{...styles.text, alignSelf: 'flex-end'}}>{props.person.offset ? ("in " + props.person.offset + " minutes") : "Now"}</Text>
+          </View>
+        </View>
+        <Text style={styles.text}>{props.person.location}</Text>
+      </TouchableOpacity>
+    </>
   )
 }
 
