@@ -22,10 +22,10 @@ const LocationsIcon = props => {
         
     return (
         <View style={{...styles.locationsIcon}}> 
-            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
+            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("location"))}>
       <Image
-        source={require("../../assets/location-pin.png")}
-        style={{...styles.eat, width: 100, height: 100}}  />
+        defaultSource={require("../../assets/location.png")}
+        style={{...styles.locationsIcon, width: 1, height: 90}}  />
     </TouchableOpacity>
         </View>
       )
@@ -34,16 +34,16 @@ const LocationsIcon = props => {
 
 const styles = StyleSheet.create({
     locationsIcon: {
-        display: "flex",
-        zIndex: 99,
-        justifyContent: "center",
-        alignSelf: 'flex-start',
-        bottom: DEVICE_HEIGHT/50,
-        backgroundColor: 'transparent',
-        position: 'absolute',
-        color: 'white',
-        paddingLeft: (DEVICE_WIDTH/2) + 70,
-        padding: 0,
+      display: "flex",
+      zIndex: 50,
+      justifyContent: "center",
+      alignSelf: 'flex-start',
+      bottom: DEVICE_HEIGHT/50,
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      color: 'white',
+      paddingLeft: (DEVICE_WIDTH/2) + 70,
+      padding: 0,
         
       },
     

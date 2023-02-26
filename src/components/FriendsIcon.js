@@ -22,12 +22,12 @@ const FriendsIcon = props => {
         
     return (
       <View style={{...styles.friendsIcon}}> 
-        <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))}>
-        <Image
-          source={require("../../assets/friends.png")}
-          style={{...styles.eat, width: 100, height: 100}}  />
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity onPress={() => (navigationRef.current?.navigate("friendsTop"))}>
+      <Image
+        defaultSource={require("../../assets/friends.png")}
+        style={{...styles.friendsIcon, width: 100, height: 100}}  />
+    </TouchableOpacity>
+        </View>
     )
 }
 // flex direction col then flex direction row to move it up and down
@@ -35,7 +35,7 @@ const FriendsIcon = props => {
 const styles = StyleSheet.create({
     friendsIcon: {
         display: "flex",
-        zIndex: 99,
+        zIndex: 50,
         justifyContent: "center",
         alignSelf: 'flex-start',
         bottom: DEVICE_HEIGHT/50,
