@@ -18,7 +18,7 @@ import {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 
-//import MakeNewFriend from '../components/SearchObject';
+import MakeNewFriend from '../components/SearchObject';
 
 // const Searches = props => {
 //     return (

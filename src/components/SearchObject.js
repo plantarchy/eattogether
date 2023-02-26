@@ -18,7 +18,7 @@ import {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 
-const MakeNewFriend = props => {
+const SearchFriend = props => {
     
     return (
         
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
     },
 })
-export default MakeNewFriend
+export default SearchFriend
