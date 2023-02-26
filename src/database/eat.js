@@ -1,5 +1,7 @@
 import { app, db } from './config.js';
+import { notifyFriends } from './notifications';
 import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, updateDoc, deleteDoc, collection, where, onSnapshot } from 'firebase/firestore';
+import {getUserFriends} from './user.js';
 
 /*
  * User Format:
@@ -13,7 +15,9 @@ import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, u
  * }
  */
 
-export async function listEats(uid) {
+let eatsCallback = null;
+export async function listEats(uid, callback) {
+    console.log("LISTEATS", uid, callback);
     const eats = query(collection(db, 'eats'), where("people", "array-contains", uid));
     const eatsJSON = [];
     const eatsDocs = await getDocs(eats);
@@ -23,15 +27,35 @@ export async function listEats(uid) {
             ...doc.data()
         })
     })
+    if (eatsCallback == null) {
+        eatsCallback = onSnapshot(query(collection(db, 'eats'), where('people', "array-contains", uid)), (snap) => {
+            console.log("BEGIN UPDATE", uid)
+            const feedItems = [];
+            snap.forEach((doc) => {
+                const data = doc.data();
+                console.log("GET DATA", data)
+                feedItems.push({
+                    "id": doc.id,
+                    ...data
+                });
+            });
+            if (callback != null) {
+                callback(feedItems)
+            }
+        });
+    }
 
     return eatsJSON;
 }
 
 export async function addEat(uid, data) {
-    return addDoc(collection(db, "eats"), {
+    const info = {
         owner: uid,
         ...data
-    });
+    }
+    console.log("FINO", info)
+    await notifyFriends(await getUserFriends(uid), info);
+    return addDoc(collection(db, "eats"), info);
 }
 
 export async function updateEat(id, data) {

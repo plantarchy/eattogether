@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -16,36 +16,34 @@ import {
   StatusBar,
 } from 'react-native';
 import { navigationRef } from '../lib/navigation'
+import { listEats } from '../database/eat'
 
 import EatIcon from '../components/EatIcon';
 import FriendsIcon from '../components/FriendsIcon';
 import LocationsIcon from '../components/LocationsIcon';
 import FeedItem from '../components/FeedItem';
+import { GlobalContext } from '../modules/GlobalContext'
 
 const Feed = props => {
+  const { user, setUser } = useContext(GlobalContext);
+  const [ feedItems, setFeedItems ] = useState([]);
+
   let items = [];
-  let people = [
-    {
-      name: "John Doe (you)",
-      place: "Hillenbrand",
-    },
-    {
-      name: "Vincent",
-      place: "Wiley",
-    },
-    {
-      name: "Connor",
-      place: "Any",
-    },
-  ];
+  useEffect(() => {
+    (async () => {
+      setFeedItems(await listEats(user.id, setFeedItems));
+    })()
+  }, [])
 
-  items.push(
-    <FeedItem key={0} person={people[0]} bgColor={'#F23F8A'}/>
-  )
-
-  for (let i = 1; i < people.length; i++) {
+  if (feedItems.length > 0) {
     items.push(
-      <FeedItem key={i} person={people[i]} bgColor={'#2BD55B'}/>
+      <FeedItem key={0} person={feedItems[0]} bgColor={'#F23F8A'}/>
+    )
+  }
+
+  for (let i = 1; i < feedItems.length; i++) {
+    items.push(
+      <FeedItem key={i} person={feedItems[i]} bgColor={'#2BD55B'}/>
     )
   };
 

@@ -26,12 +26,12 @@ const Post = props => {
   <>
   <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))} style={{...styles.feedItem, backgroundColor: props.bgColor}}>
     <View style={{flexDirection: 'row'}}>
-      <Text style={styles.text}>{`${props.person.name}`}</Text>
+      <Text style={styles.text}>{`${props.person.owner}`}</Text>
       <View style={{flexGrow: 1}}>
-        <Text style={{...styles.text, alignSelf: 'flex-end'}}>Now</Text>
+        <Text style={{...styles.text, alignSelf: 'flex-end'}}>{props.person.offset ? ("in " + props.person.offset + " minutes") : "Now"}</Text>
       </View>
     </View>
-    <Text style={styles.text}>{`${props.person.place}`}</Text>
+    <Text style={styles.text}>{props.person.location}</Text>
   </TouchableOpacity>
   </>
   )

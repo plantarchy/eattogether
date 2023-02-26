@@ -8,7 +8,7 @@ export async function updateTokenInStore(uid, token) {
     updateUserData(uid, { token });
 }
 
-export async function notifyFriends(friends) {
+export async function notifyFriends(friends, info) {
   for (let friend of friends) {
     const user = await getDoc(doc(db, "users", friend.id));
     if (!user.exists()) {
@@ -16,7 +16,7 @@ export async function notifyFriends(friends) {
     }
     const data = user.data();
     console.log(data);
-    sendPushNotification(data.token, {"Haaaaa": "bbbb"})
+    sendPushNotification(data.token, info)
   }
 }
 
@@ -25,7 +25,7 @@ export async function sendPushNotification(expoPushToken, data) {
     to: expoPushToken,
     sound: 'default',
     title: 'EatWithMe!',
-    body: `${data.person} is eating at ${data.place}.`,
+    body: `${data.owner} is eating at ${data.location} in ${data.offset} minutes.`,
     data,
   };
 

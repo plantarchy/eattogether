@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -15,16 +15,43 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import ModalSelector from 'react-native-modal-selector';
+import { listEats, addEat } from '../database/eat';
+import {getUserFriends} from '../database/user';
+import { GlobalContext } from '../modules/GlobalContext';
 
 const Eat = props => {
+  const [ timeOffset, setTimeOffset ] = useState(0);
   const [ location, setLocation ] = useState(0)
+  const { user, setUser } = useContext(GlobalContext);
+  const [ feedItems, setFeedItems ] = useState([]);
+  const offsets = [
+    0,
+    5,
+    15
+  ];
   const locations = [
-    "Any Location",
-    "Hillenbrand",
-    "Wiley",
-    "Hillenbrand",
-    "Hillenbrand",
-  ]
+    {label: 'ANY - Default', key: 0 },
+    {label: 'Hillenbrand', key: 1 },
+    {label: 'Wiley', key: 2, },
+    {label: 'Ford', key: 3, },
+    {label: 'Windsor', key: 4, },
+    {label: 'Earhart', key: 5, },
+  ];
+
+
+  const submit = async () => {
+    let processedLocation = locations[location].label;
+    if (location === 0) {
+      processedLocation = "ANYWHERE"
+    }
+    console.log(user)
+    await addEat(user.name, {
+      location: processedLocation,
+      offset: offsets[timeOffset],
+      people: await getUserFriends(user.id)
+    })
+  }
+
   return (
   <>
    <SafeAreaView style={{...styles.container}} >
@@ -49,36 +76,39 @@ const Eat = props => {
         <TextInput
           style={{ ...styles.default, marginTop: 10, backgroundColor: "#F23F8A", fontSize: 25, fontWeight: "bold", color: "#EEE", textAlign: "center"}}
           editable={false}
-          value={locations[location]} />
+          value={locations[location].label} />
       </ModalSelector>
       < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ANY-DEFAULT</Text>
       <View>
       < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>People</Text>
       </View>
       <TouchableOpacity onPress={() => {console.log("default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>FRIENDS-DEFAULT</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => {console.log("Public")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>PUBLIC</Text>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ALL FRIENDS - Default</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => {console.log("Select...")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey"}}>
       < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>SELECT...</Text>
     </TouchableOpacity>
     <View>
-    < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>Time</Text>
+      <Text style={{...styles.location, marginTop: 24, fontSize: 25, fontWeight: 'bold', color: "black"}}>Time</Text>
     </View>
-    <TouchableOpacity onPress={() => {console.log("Now-default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>NOW-DEFAULT</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => {console.log("5mins")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>5 MINS</Text>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => {console.log("10mins")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey"}}>
-      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>10 MINS</Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {setTimeOffset(0)}}
+        style={{...styles.default, marginTop: 10, backgroundColor: timeOffset == 0 ? "#F23F8A" : "grey"}}>
+        <Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>NOW-DEFAULT</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {setTimeOffset(1)}}
+        style={{...styles.grey_box, marginTop: 10, backgroundColor: timeOffset == 1 ? "#F23F8A" : "grey"}}>
+        < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>5 MINS</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {setTimeOffset(2)}}
+        style = {{...styles.grey_box, marginTop: 10, backgroundColor: timeOffset == 2 ? "#F23F8A" : "grey"}}>
+        < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>10 MINS</Text>
+      </TouchableOpacity>
     </ScrollView>
     {/* Do not put this one in the scroll */}
-    <TouchableOpacity onPress={() => {console.log("Eat")}} style = {{...styles.eat, marginTop: 10, backgroundColor: "#2BD55B"}}>
+    <TouchableOpacity onPress={() => {submit()}} style = {{...styles.eat, marginTop: 10, backgroundColor: "#2BD55B"}}>
       < Text style={{fontSize: 55, fontWeight: 'bold', color: "#EEE", textAlign: "center",}}>EAT</Text>
     </TouchableOpacity>
     </SafeAreaView>
