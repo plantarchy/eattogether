@@ -20,23 +20,19 @@ import { navigationRef } from '../lib/navigation'
 import EatIcon from '../components/EatIcon';
 import FriendsIcon from '../components/FriendsIcon';
 import LocationsIcon from '../components/LocationsIcon';
+import FeedItem from '../components/FeedItem';
 
 const Home = props => {
   let items = [];
-  let names = ["Vincent", "Connor", "Murtuza", "Alvin", "Henry"];
+  let people = [["John Doe(You)", "3:30","Wiley"], ["Vincent","4:30", "Hillenbrand"], ["Connor","1:20", "Any"]];
 
   items.push(
-    <View style={styles.myFeedItem}>
-      <Text>You</Text>
-    </View>
+    <FeedItem person={people[0]} bgColor={'#F23F8A'}/>
   )
 
-  for (let name of names) {
+  for (let i = 1; i < people.length; i++) {
     items.push(
-      <View style={styles.feedItem}>
-        <Text>{`${name}`}</Text>
-
-      </View>
+      <FeedItem person={people[i]} bgColor={'#2BD55B'}/>
     )
   };
 
@@ -44,7 +40,6 @@ const Home = props => {
   <>
     <View style={styles.container}>
       <ScrollView style={{width: DEVICE_WIDTH}}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
-      
     </View>
     <View style={styles.southPanel}></View>
     <EatIcon/>
@@ -57,7 +52,7 @@ const Home = props => {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const styles = StyleSheet.create({
-  
+
   user: {
     padding: 16,
     backgroundColor: "#666",
@@ -81,31 +76,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center"
   },
-  myFeedItem: {
-    display: "flex",
-    flexDirection: "row",
-    borderRadius: 15,
-    color: "#EEE",
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    padding: 50,
-    backgroundColor: "red"
-  },
   feedItem: {
     display: "flex",
-    flexDirection: "row",
-    padding: 50,
+    flexDirection: "column",
+    padding: 30,
     borderRadius: 15,
-    color: "#EEE",
-    marginBottom: 10,
+    marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: "green"
-  }
-
-
+    backgroundColor: "#2BD55B"
+  },
+  text: {
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    fontSize: 20
+  },
 });
 
 export default Home;
