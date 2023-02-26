@@ -16,9 +16,11 @@ import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, u
 export async function getLocations(label) {
     const locationDoc = await getDoc(doc(db, 'locations', label));
     if (!locationDoc.exists()) {
+        console.log("None")
         return [];
     }
     const location = locationDoc.data();
+    console.log(location, label)
     return location.locations;
 }
 

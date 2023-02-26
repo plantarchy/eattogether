@@ -23,24 +23,15 @@ export async function getUserData(uid) {
 }
 
 export async function getUserFriends(uid) {
-    const userFriendsA = query(collection(db, 'friends'), where("a", "==", uid));
-    const userFriendsB = query(collection(db, 'friends'), where("b", "==", uid));
+    const userFriendsA = query(collection(db, 'users', uid, 'friends'));
 
     const friends = [];
     const friendsA = await getDocs(userFriendsA);
-    const friendsB = await getDocs(userFriendsB);
     friendsA.forEach((doc) => {
+        const data = doc.data();
         friends.push({
-            "relID": doc.id,
-            "id": doc.b,
-            "name": doc.bName
-        });
-    });
-    friendsB.forEach((doc) => {
-        friends.push({
-            "relID": doc.id,
-            "id": a,
-            "name": aName
+            "id": doc.id,
+            "name": data.name
         });
     });
 
@@ -48,17 +39,19 @@ export async function getUserFriends(uid) {
 }
 
 export async function addFriend(you, them) {
-    const relationship = await addDoc(collection(db, "friends"), {
-        a: you.id,
-        b: them.id,
-        aName: you.name,
-        bName: them.name,
+    await setDoc(doc(db, 'users', you.id, "friends", them.id), {
+        name: them.name,
     });
-    return relationship;
+    await setDoc(doc(db, 'users', them.id, "friends", you.id), {
+        name: them.name,
+    });
+    return true;
 }
 
-export async function removeFriend(relID) {
-    await deleteDoc(doc(db, "friends", relID));
+export async function removeFriend(uid, themID) {
+    console.log(uid, themID)
+    await deleteDoc(doc(db, "users", uid, "friends", themID));
+    await deleteDoc(doc(db, "users", themID, "friends", uid));
     return true;
 }
 
