@@ -22,17 +22,17 @@ import FriendsIcon from '../components/FriendsIcon';
 import LocationsIcon from '../components/LocationsIcon';
 import FeedItem from '../components/FeedItem';
 
-const Home = props => {
+const Feed = props => {
   let items = [];
   let people = [["John Doe(You)", "3:30","Wiley"], ["Vincent","4:30", "Hillenbrand"], ["Connor","1:20", "Any"]];
 
   items.push(
-    <FeedItem person={people[0]} bgColor={'#F23F8A'}/>
+    <FeedItem key={0} person={people[0]} bgColor={'#F23F8A'}/>
   )
 
   for (let i = 1; i < people.length; i++) {
     items.push(
-      <FeedItem person={people[i]} bgColor={'#2BD55B'}/>
+      <FeedItem key={i} person={people[i]} bgColor={'#2BD55B'}/>
     )
   };
 
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Feed;

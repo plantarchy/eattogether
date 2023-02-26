@@ -1,5 +1,5 @@
 import { app, db } from './config.js';
-import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, updateDoc, deleteDoc, collection, where } from 'firebase/firestore';
+import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, updateDoc, deleteDoc, collection, where, onSnapshot } from 'firebase/firestore';
 
 /*
  * User Format:
@@ -13,6 +13,7 @@ import { doc, query, addDoc, getDoc, getDocs, setDoc, arrayUnion, arrayRemove, u
  * }
  */
 
+
 export async function getUserData(uid) {
     const userDoc = await getDoc(doc(db, 'users', uid));
     if (!userDoc.exists()) {
@@ -22,18 +23,36 @@ export async function getUserData(uid) {
     return user;
 }
 
-export async function getUserFriends(uid) {
+let friendsCallback = null;
+export async function getUserFriends(uid, callback = null) {
     const userFriendsA = query(collection(db, 'users', uid, 'friends'));
 
     const friends = [];
     const friendsA = await getDocs(userFriendsA);
     friendsA.forEach((doc) => {
         const data = doc.data();
+      console.log(data);
         friends.push({
             "id": doc.id,
             "name": data.name
         });
     });
+
+    if (friendsCallback == null) {
+        friendsCallback = onSnapshot(query(collection(db, 'users', uid, 'friends')), (snap) => {
+            const friends = [];
+            snap.forEach((doc) => {
+                const data = doc.data();
+                friends.push({
+                    "id": doc.id,
+                    "name": data.name
+                });
+            });
+            if (callback != null) {
+                callback(friends)
+            }
+        });
+    }
 
     return friends;
 }
