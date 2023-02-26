@@ -55,7 +55,7 @@ const LocationView = props => {
       <View style={{ width: 24, marginRight: 24 }} />
     </View>
     <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>{itemsReg}{itemsFav}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
+        <ScrollView style={styles.scrollView}>{itemsReg}<View style={{borderBottomColor: "#CCCCCC", borderBottomWidth: 5, marginBottom: 12}}></View>{itemsFav}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
         <NewLocation />
     </View>
     </>

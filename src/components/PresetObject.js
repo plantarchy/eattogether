@@ -31,7 +31,7 @@ const NewPreset = props => {
             
             <TouchableOpacity onPress={() => {console.log("remove-friend")}} style={{marginLeft: "auto"}}>
                         <Image
-                        source={require("../../assets/remove-location.png")}
+                        defaultSource={require("../../assets/remove-location.png")}
                         style={{width: 40, height: 40, marginLeft: "auto" }}
                         />
             </TouchableOpacity>
