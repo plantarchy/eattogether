@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -19,7 +19,7 @@ const Home = props => {
   const { user, setUser } = useContext(GlobalContext);
   // console.log("PROVIDER", useContext(GlobalContext));
   return (
-    <View style={styles.container}>
+    <View key={'har'} style={styles.container}>
       <Text>{ JSON.stringify(user) }</Text>
     </View>
   )

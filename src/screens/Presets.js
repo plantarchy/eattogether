@@ -14,28 +14,43 @@ import {
   SafeAreaView
 } from 'react-native';
 
-import NewFriend from '../components/FriendObject';
-import AddFriend from '../components/AddFriend';
+import NewPreset from '../components/PresetObject';
+import AddPreset from '../components/AddPreset';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const FriendView = props => {
+const PresetView = props => {
     let items = []
-    let friends = ["Jerry", "Vincent", "Muyang Yan", "Murtuza", "Henry", "Alvin"]
+    var presets = { "Dinner - Mon " : "Hillenbrand 6:30 PM" , 
+        "Lunch - Wed " : "Windsor 1:30 PM" ,
+        "Brek" : "Ford 8:30 AM" ,  
+    };
+    //let presets = []
+    // WILL BE CHANGED VIA BACKEND
 
-    for (let friend of friends) {
+    // if (presets.length == 0) {
+      
+    //   return (
+    //     <View style={styles.container}>
+    //   <Text> You have no current presets. Try making one below! </Text>
+    // </View>
+    //   )
+    // }
+
+    for (var key in presets) {
         // items is a list of objects with the friends names
         items.push(
-            <NewFriend key={`${friend}`} name={friend}/>
+            <NewPreset key={`${key}`} title={key} location={presets[key]}/>
         )
     }
     
   return (
 // take in the list of friends and run a loop to display all of them in their own boxes?
 
+
     <>
     <View style={styles.container}>
         <ScrollView style={styles.scrollView}>{items}<View style={{height: DEVICE_HEIGHT / 7}}></View></ScrollView>
-        <AddFriend />
+        <AddPreset />
     </View>
     </>
     
@@ -54,7 +69,6 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH,
     alignItems: "center",
     textAlign: "center",
-    //paddingBottom: 0.2 * DEVICE_HEIGHT
   },
   scrollView: {
     zIndex: 5,
@@ -79,7 +93,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 15,
         color: "#EEE"
-      },
+  },
   textInput: {
     width: DEVICE_WIDTH * 0.7,
     padding: 16,
@@ -88,4 +102,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FriendView;
+export default PresetView;

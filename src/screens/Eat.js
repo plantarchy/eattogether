@@ -17,7 +17,37 @@ import {
 const Home = props => {
   return (
     <View style={styles.container}>
-      <Text> your mom gay </Text>
+      < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>Location</Text>
+      <TouchableOpacity onPress={() => {console.log("default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ANY-DEFAULT</Text>
+     </TouchableOpacity>
+    <TouchableOpacity onPress={() => {console.log("Select...")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>Select...</Text>
+    </TouchableOpacity>
+      < Text style={{...styles.people, fontSize: 25, fontWeight: 'bold', color: "black"}}>People</Text>
+      <TouchableOpacity onPress={() => {console.log("default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>FRIENDS-DEFAULT</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => {console.log("Public")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>PUBLIC</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => {console.log("Select...")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>SELECT...</Text>
+    </TouchableOpacity>
+    < Text style={{...styles.time, fontSize: 25, fontWeight: 'bold', color: "black"}}>Time</Text>
+    <TouchableOpacity onPress={() => {console.log("Now-default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>NOW-DEFAULT</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => {console.log("5mins")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>5 MINS</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => {console.log("10mins")}} style = {{...styles.grey_box, marginTop: 10, backgroundColor: "grey", marginLeft: "center"}}>
+      < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>10 MINS</Text>
+    </TouchableOpacity>
+    {/* Do not put this one in the scroll */}
+    <TouchableOpacity onPress={() => {console.log("Eat")}} style = {{...styles.eat, marginTop: 10, backgroundColor: "#2BD55B", marginLeft: "center"}}>
+      < Text style={{fontSize: 55, fontWeight: 'bold', color: "#EEE"}}>EAT</Text>
+    </TouchableOpacity>
     </View>
   )
 }
@@ -25,13 +55,56 @@ const Home = props => {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const styles = StyleSheet.create({
+  eat: {
+    padding: 10,
+    backgroundColor: "#666",
+    width: DEVICE_WIDTH - 15,
+    height: "10%",
+    alignItems: "center",
+    borderRadius: 15,
+    color: "#EEE"
+  },
+  default: {
+    padding: 12,
+    width: DEVICE_WIDTH - 15,
+    height: "6%",
+    alignItems: "center",
+    borderRadius: 15,
+    color: "#EEE"
+  },
+  grey_box: {
+    padding: 12,
+    width: DEVICE_WIDTH - 15,
+    height: "6%",
+    alignItems: "center",
+    borderRadius: 15,
+    color: "#EEE",
+  },
+  time: {
+    right: "39%",
+    display: "flex",
+    textAlign: "left",
+  },
+  people: {
+    right: "36%",
+    display: "flex",
+    textAlign: "left",
+  },
+  location: {
+    right: "33%",
+    display: "flex",
+    textAlign: "left",
+  },
   container: {
     display: "flex",
+    zIndex: 99,
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    justifyContent: "center",
     alignItems: "center",
-    textAlign: "center"
+    textAlign: "center",
+    justifyContent: "flex-end",
+    alignSelf: 'flex-end',
+    bottom: "14%",
   }
 });
 

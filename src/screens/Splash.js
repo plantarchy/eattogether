@@ -52,7 +52,7 @@ const Login = props => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 48, marginBottom: 32 }}>QuickEats</Text>
+      <Text style={{ fontSize: 48, marginBottom: 32 }}>EatWithMe</Text>
       <TouchableOpacity onPress={() => {props.navigation.navigate("signup")}} style={{...styles.button, backgroundColor: "#2BD55B", marginBottom: 16}}>
         <Text style={{fontSize: 18, color: "#EEE"}}>Signup</Text>
       </TouchableOpacity>
