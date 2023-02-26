@@ -84,16 +84,6 @@ const styles = StyleSheet.create({
     zIndex: 5,
     height: DEVICE_HEIGHT,
   },
-  addfriend: {
-    padding: 10,
-    backgroundColor: "#66CB6A", // 102 203 106
-    width: DEVICE_WIDTH * 0.2,
-    height: DEVICE_HEIGHT * 0.1,
-    color: "000000",
-    x: DEVICE_WIDTH * .5,
-    y: DEVICE_HEIGHT * .1,
-
-  }, 
   user: {
         display: "flex",
         flexDirection: "row",
