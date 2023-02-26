@@ -32,6 +32,7 @@ const Signup = props => {
   const locations = LOCATIONS;
 
   const [validation, setValidation] = useState(["", "", "", ""]);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
@@ -45,6 +46,10 @@ const Signup = props => {
       validErrors[0] = "Invalid email"
       errors = true;
     }
+    if (name.length < 1) {
+      validErrors[3] = "Name required!"
+      errors = true;
+    }
     if (password.length <= 8) {
       validErrors[1] = "Password length must be >8"
       errors = true;
@@ -56,7 +61,7 @@ const Signup = props => {
     setValidation(validErrors);
 
     try {
-      const user = await createUserEmailPassword(email, password, location);
+      const user = await createUserEmailPassword(email, password, name, location);
       setUser(user);
       console.log("NEW USER", user);
 
@@ -88,6 +93,16 @@ const Signup = props => {
     </View>
     <View style={styles.container}>
       <Text style={{ fontSize: 48, marginBottom: 24 }}>Signup</Text>
+      {
+        validation[3] ? <Text style={{ color: "red" }}>
+          {validation[3]}
+        </Text> : <></>
+      }
+      <TextInput
+        style={{ ...styles.textInput, marginBottom: 16, ...(validation[0] ? { borderColor: "red", borderWidth: 2 } : {}) }}
+        placeholder="Name"
+        onChangeText={(text) => setName(text)}
+      />
       {
         validation[0] ? <Text style={{ color: "red" }}>
           {validation[0]}

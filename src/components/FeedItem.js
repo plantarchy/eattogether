@@ -25,13 +25,13 @@ const Post = props => {
   return (
   <>
   <TouchableOpacity onPress={() => (navigationRef.current?.navigate("eat"))} style={{...styles.feedItem, backgroundColor: props.bgColor}}>
-    <View style={{flexDirection: 'row'}}> 
-      <Text style={styles.text}>{`${props.person[0]}`}</Text>
+    <View style={{flexDirection: 'row'}}>
+      <Text style={styles.text}>{`${props.person.name}`}</Text>
       <View style={{flexGrow: 1}}>
-        <Text style={{...styles.text, alignSelf: 'flex-end'}}>{`${props.person[1]}`}</Text>
+        <Text style={{...styles.text, alignSelf: 'flex-end'}}>Now</Text>
       </View>
     </View>
-    <Text style={styles.text}>{`${props.person[2]}`}</Text>
+    <Text style={styles.text}>{`${props.person.place}`}</Text>
   </TouchableOpacity>
   </>
   )

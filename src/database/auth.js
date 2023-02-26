@@ -14,7 +14,7 @@ import {
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { getUserData } from './user.js';
 
-export async function createUserEmailPassword(email, password, location) {
+export async function createUserEmailPassword(email, password, name, location) {
     const auth = getAuth(app);
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const uid = res.user.uid;
@@ -22,6 +22,7 @@ export async function createUserEmailPassword(email, password, location) {
     // Create user document under /users collection
     const data = {
         id: uid,
+        name,
         email,
         location
     };

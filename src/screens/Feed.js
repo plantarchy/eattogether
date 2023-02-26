@@ -24,7 +24,20 @@ import FeedItem from '../components/FeedItem';
 
 const Feed = props => {
   let items = [];
-  let people = [["John Doe(You)", "3:30","Wiley"], ["Vincent","4:30", "Hillenbrand"], ["Connor","1:20", "Any"]];
+  let people = [
+    {
+      name: "John Doe (you)",
+      place: "Hillenbrand",
+    },
+    {
+      name: "Vincent",
+      place: "Wiley",
+    },
+    {
+      name: "Connor",
+      place: "Any",
+    },
+  ];
 
   items.push(
     <FeedItem key={0} person={people[0]} bgColor={'#F23F8A'}/>

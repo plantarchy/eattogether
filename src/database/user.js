@@ -77,3 +77,29 @@ export async function removeFriend(uid, themID) {
 export async function updateUserData(uid, data) {
     return setDoc(doc(db, 'users', uid), data, { merge: true });
 }
+
+export async function listPresets(uid) {
+    const presets = query(collection(db, 'users', uid, 'presets'));
+    const presetsJSON = [];
+    const presetsDocs = await getDocs(presets);
+    presetsDocs.forEach((doc) => {
+        presetsJSON.push({
+            id: doc.id,
+            ...doc.data()
+        })
+    })
+
+    return presetsJSON;
+}
+
+export async function addPreset(uid, data) {
+    return addDoc(collection(db, "users", uid, "presets"), data);
+}
+
+export async function updatePreset(uid, id, data) {
+    return setDoc(doc(db, 'users', uid, "presets", id), data, { merge: true });
+}
+
+export async function deletePreset(id) {
+    return await deleteDoc(doc(db, "users", uid, "presets", id));
+}
