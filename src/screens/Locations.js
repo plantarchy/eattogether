@@ -13,21 +13,33 @@ import {
   Keyboard,
   SafeAreaView
 } from 'react-native';
-
-import NewFriend from '../components/FriendObject';
-import AddFriend from '../components/AddFriend';
+import NewLocation from '../components/LocationObjects.js';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const FriendView = props => {
-    let items = []
-    let friends = ["Jerry", "Vincent", "Muyang Yan", "Murtuza", "Henry", "Alvin"]
+const LocationView = props => {
+    let itemsFav = []
+    let itemsReg = []
 
-    for (let friend of friends) {
+    let locations = ["Windsor", "PMU", "Ford", "Cary Knight Spot"]
+    let favs = ["Hillenbrand", "Earhart", "Red Wok"]
+    // GIVEN VIA VINCENTS DB
+
+    for (let location of locations) {
         // items is a list of objects with the friends names
-        items.push(
-            <NewFriend key={`${friend}`} name={friend} />
+        itemsReg.push(
+            <NewLocation key={`${location}`} name={location} favor={false}/>
         )
     }
+    //<View style={{borderBottomColor: "#CCCCCC", borderBottomWidth: 1}}></View>
+
+    for (let fav of favs) {
+        // items is a list of objects with the friends names
+        itemsFav.push(
+            <NewLocation key={`${fav}`} name={fav} favor={true}/>
+        )
+    }
+    
+    
     
   return (
 // take in the list of friends and run a loop to display all of them in their own boxes?
@@ -39,18 +51,12 @@ const FriendView = props => {
           style={{width: 24, height: 24, marginLeft: 24 }}
         />
       </TouchableOpacity>
-      
-      <Text style={{ paddingLeft: 5, fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Friends</Text>
-      <TouchableOpacity onPress={( ) => props.navigation.goBack()}>
-        <Image
-          source={require("../../assets/find.png")}
-          style={{width: 24, height: 24, marginRight: 24 }}
-        />
-      </TouchableOpacity>
+      <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Locations</Text>
+      <View style={{ width: 24, marginRight: 24 }} />
     </View>
     <View style={styles.container}>
-        <ScrollView style={styles.scrollView}>{items}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
-        <AddFriend />
+        <ScrollView style={styles.scrollView}>{itemsReg}{itemsFav}<View style={{height: DEVICE_HEIGHT / 4}}></View></ScrollView>
+        <NewLocation />
     </View>
     </>
     
@@ -83,18 +89,8 @@ const styles = StyleSheet.create({
   scrollView: {
     zIndex: 5,
     height: DEVICE_HEIGHT,
-  },
-  addfriend: {
-    padding: 10,
-    backgroundColor: "#66CB6A", // 102 203 106
-    width: DEVICE_WIDTH * 0.2,
-    height: DEVICE_HEIGHT * 0.1,
-    color: "000000",
-    x: DEVICE_WIDTH * .5,
-    y: DEVICE_HEIGHT * .1,
-
   }, 
-  user: {
+  restaurant: {
         display: "flex",
         flexDirection: "row",
         padding: 16,
@@ -112,4 +108,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FriendView;
+export default LocationView;

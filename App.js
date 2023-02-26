@@ -19,6 +19,7 @@ import Splash from './src/screens/Splash';
 import FriendsTop from './src/screens/FriendsTop'
 import Eat from './src/screens/Eat'
 import Presets from './src/screens/Presets'
+import Locations from './src/screens/Locations'
 
 // import TabHeader from './src/components/TabHeader';
 import { navigationRef } from './src/lib/navigation'
@@ -40,10 +41,9 @@ Notifications.setNotificationHandler({
 
 
 const renderScene = SceneMap({
-  home: Home,
   feed: Feed,
-  friendsTop: FriendsTop,
   preset: Presets,
+
 });
 
 const Stack = createStackNavigator();
@@ -103,10 +103,9 @@ function App() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'home', title: 'Home' },
     { key: 'feed', title: 'Feed' },
-    { key: 'friendsTop', title: 'Friends' },
-    { key: 'preset', title: 'Presets' }
+    { key: 'preset', title: 'Presets' },
+    
   ]);
 
   function MainScreen() {
@@ -159,6 +158,10 @@ function App() {
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="eat" component={Eat} />
         <Stack.Screen name="signup" component={Signup} />
+        <Stack.Screen name="main" component={MainScreen} />
+        <Stack.Screen name="friendsTop" component={FriendsTop} />
+        <Stack.Screen name="location" component={Locations} />
+
       </Stack.Navigator>
       <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
     </NavigationContainer>
