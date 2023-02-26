@@ -34,6 +34,7 @@ export async function loginUserEmailPassword(email, password) {
     const auth = getAuth(app);
     const res = await signInWithEmailAndPassword(auth, email, password);
     const uid = res.user.uid;
+    console.log(res);
     return getUserData(uid);
 }
 

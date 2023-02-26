@@ -35,10 +35,10 @@ const EatIcon = props => {
 const styles = StyleSheet.create({
     eat: {
         display: "flex",
-        zIndex: 99,
+        zIndex: 110,
         justifyContent: "center",
         alignSelf: 'center',
-        bottom: DEVICE_HEIGHT/30,
+        bottom: DEVICE_HEIGHT / 30,
         backgroundColor: 'transparent',
         position: 'absolute',
         color: 'white',

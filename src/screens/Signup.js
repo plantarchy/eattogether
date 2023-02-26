@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {EmailAuthProvider} from 'firebase/auth';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -17,17 +19,58 @@ import {
 } from 'react-native';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import ModalSelector from 'react-native-modal-selector';
+import { createUserEmailPassword } from '../database/auth';
+import { GlobalContext }  from '../modules/GlobalContext';
+import { navigationRef } from '../lib/navigation';
+import {LOCATIONS} from '../lib/globals';
+import { registerForPushNotificationsAsync, updateTokenInStore } from '../database/notifications'
 
 const Signup = props => {
+  const { onSignup } = props;
+  const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
+  const locations = LOCATIONS;
+
+  const [validation, setValidation] = useState(["", "", "", ""]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCPassword] = useState("");
   const [location, setLocation] = useState(0);
-  const [selectedLocation, setSelectedLocation] = useState();
-  const locations = [
-    {label: 'UIUC', key: 0, value: "uiuc"},
-    {label: 'Purdue', key: 1, value: "purdue"},
-    {label: 'IU-Bloomington', key: 2, value: "iu-bloom"},
-    {label: 'UIC', key: 3, value: "uic"},
-    {label: 'WashU', key: 4, value: "washu"},
-  ];
+
+  const signup = async () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    let validErrors = ["", "", "", ""];
+    let errors = false;
+    if (!reg.test(email)) {
+      validErrors[0] = "Invalid email"
+      errors = true;
+    }
+    if (password.length <= 8) {
+      validErrors[1] = "Password length must be >8"
+      errors = true;
+    }
+    if (password != cpassword) {
+      validErrors[2] = "Passwords must match"
+      errors = true;
+    }
+    setValidation(validErrors);
+
+    try {
+      const user = await createUserEmailPassword(email, password, location);
+      setUser(user);
+      console.log("NEW USER", user);
+
+      let token = await AsyncStorage.getItem("pushToken")
+      if (token == null) token = await registerForPushNotificationsAsync();
+      await AsyncStorage.setItem("pushToken", token)
+      await updateTokenInStore(user.id, token)
+      setPushToken(token)
+
+      navigationRef.current?.navigate("main");
+    } catch (e) {
+      Alert.alert("Signup Error", e.message);
+    }
+  }
 
   return (
     <>
@@ -38,22 +81,44 @@ const Signup = props => {
           style={{width: 24, height: 24, marginLeft: 24 }}
         />
       </TouchableOpacity>
-      <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>Signup</Text>
+      <Text style={{ fontSize: 24, marginLeft: "auto", marginRight: "auto", }}>
+        Signup
+      </Text>
       <View style={{width: 24, marginRight: 24 }} />
     </View>
     <View style={styles.container}>
       <Text style={{ fontSize: 48, marginBottom: 24 }}>Signup</Text>
+      {
+        validation[0] ? <Text style={{ color: "red" }}>
+          {validation[0]}
+        </Text> : <></>
+      }
       <TextInput
-        style={{ ...styles.textInput, marginBottom: 16 }}
+        style={{ ...styles.textInput, marginBottom: 16, ...(validation[0] ? { borderColor: "red", borderWidth: 2 } : {}) }}
         placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
       />
+      {
+        validation[1] ? <Text style={{ color: "red" }}>
+          {validation[1]}
+        </Text> : <></>
+      }
       <TextInput
-        style={{ ...styles.textInput, marginBottom: 16 }}
+        style={{ ...styles.textInput, marginBottom: 16, ...(validation[1] ? { borderColor: "red", borderWidth: 2 } : {}) }}
         placeholder="Password"
+        secureTextEntry={true}
+        onChangeText={(text) => setPassword(text)}
       />
+      {
+        validation[2] ? <Text style={{ color: "red" }}>
+          {validation[2]}
+        </Text> : <></>
+      }
       <TextInput
-        style={{ ...styles.textInput, marginBottom: 16 }}
+        style={{ ...styles.textInput, marginBottom: 16, ...(validation[1] ? { borderColor: "red", borderWidth: 2 } : {}) }}
         placeholder="Confirm Password"
+        onChangeText={(text) => setCPassword(text)}
+        secureTextEntry={true}
       />
       <Text style={{ fontSize: 16, textAlign: "left", alignSelf: "start", marginLeft: 0.15 * DEVICE_WIDTH, marginBottom: 8 }}>Location:</Text>
       <ModalSelector
@@ -66,8 +131,8 @@ const Signup = props => {
           editable={false}
           value={locations[location].label} />
       </ModalSelector>
-      <TouchableOpacity onPress={() => {console.log("login")}} style={styles.button}>
-        <Text style={{fontSize: 18}}>Login</Text>
+      <TouchableOpacity onPress={() => {signup()}} style={styles.button}>
+        <Text style={{fontSize: 18}}>Sign Up</Text>
       </TouchableOpacity>
     </View>
     </>
