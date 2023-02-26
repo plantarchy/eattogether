@@ -158,6 +158,7 @@ function App() {
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="eat" component={Eat} />
         <Stack.Screen name="signup" component={Signup} />
+
         <Stack.Screen name="friendsTop" component={FriendsTop} />
         <Stack.Screen name="location" component={Locations} />
 

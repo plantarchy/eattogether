@@ -18,7 +18,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 const Eat = props => {
   return (
   <>
-   <SafeAreaView style={{flex:1, ...styles.container,  backgroundColor: '#F2F2F2'}} />
+   <SafeAreaView style={{...styles.container}} >
       < Text style={{...styles.location, fontSize: 25, fontWeight: 'bold', color: "black"}}>Location</Text>
       <TouchableOpacity onPress={() => {console.log("default")}} style = {{...styles.default, marginTop: 10, backgroundColor: "#F23F8A"}}>
       < Text style={{fontSize: 25, fontWeight: 'bold', color: "#EEE"}}>ANY-DEFAULT</Text>
@@ -50,7 +50,7 @@ const Eat = props => {
     <TouchableOpacity onPress={() => {console.log("Eat")}} style = {{...styles.eat, marginTop: 10, backgroundColor: "#2BD55B"}}>
       < Text style={{fontSize: 55, fontWeight: 'bold', color: "#EEE", alignItems: "center",}}>EAT</Text>
     </TouchableOpacity>
-    <SafeAreaView style={{ flex:0, backgroundColor: '#F2F2F2' }} />
+    </SafeAreaView>
     </>
   )
 }
