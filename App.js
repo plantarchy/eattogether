@@ -11,7 +11,6 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import Home from './src/screens/Home';
 import Feed from './src/screens/Feed';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
@@ -105,7 +104,7 @@ function App() {
   const [routes] = React.useState([
     { key: 'feed', title: 'Feed' },
     { key: 'preset', title: 'Presets' },
-    
+
   ]);
 
   function MainScreen() {
@@ -158,7 +157,7 @@ function App() {
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="eat" component={Eat} />
         <Stack.Screen name="signup" component={Signup} />
-       
+
         <Stack.Screen name="friendsTop" component={FriendsTop} />
         <Stack.Screen name="location" component={Locations} />
 
