@@ -26,27 +26,27 @@ const NewFriend = props => {
         
         <>
         <View style={{...styles.background, backgroundColor: "#666",  marginBottom: 16}}>
-            <View style={{...styles.user}}>
-                <Text style={{fontSize: 25, color: "#EEE"}}>{props.name}</Text>
-                <Text style={{fontSize: 12, color: "#EEE", paddingLeft: 5}}>last ate 25 mins ago</Text>   
-            </View>
+          <View style={{...styles.user}}>
+            <Text style={{fontSize: 25, color: "#EEE"}}>{props.name}</Text>
+            <Text style={{fontSize: 12, color: "#EEE", paddingLeft: 5}}>last ate 25 mins ago</Text>   
+          </View>
 
-            <View style={{...styles.filledstar}}>    
-            <TouchableOpacity onPress={() => {setStarChecked(!starChecked)} } style={{marginLeft: "auto"}}>
-                        <Image
-                        defaultSource={require("../../assets/emptyStar.png")}
-                        source={starChecked ? require("../../assets/filledStar.png") : require("../../assets/emptyStar.png")}
-                        style={{width: 40, height: 40, marginLeft: DEVICE_WIDTH * 0.2 }}
-                        />
-            </TouchableOpacity>
-            </View>
-            
-            <TouchableOpacity onPress={() => {console.log("remove-friend")}} style={{marginLeft: "auto"}}>
-                        <Image
-                        defaultSource={require("../../assets/remove-friend.png")}
-                        style={{width: 40, height: 40, marginLeft: "auto" }}
-                        />
-            </TouchableOpacity>
+          <View style={{...styles.filledstar}}>    
+          <TouchableOpacity onPress={() => {setStarChecked(!starChecked)} } style={{marginLeft: "auto"}}>
+                      <Image
+                      defaultSource={require("../../assets/emptyStar.png")}
+                      source={starChecked ? require("../../assets/filledStar.png") : require("../../assets/emptyStar.png")}
+                      style={{width: 40, height: 40, marginLeft: DEVICE_WIDTH * 0.2 }}
+                      />
+          </TouchableOpacity>
+          </View>
+          
+          <TouchableOpacity onPress={() => {console.log("remove-friend")}} style={{marginLeft: "auto"}}>
+                      <Image
+                      defaultSource={require("../../assets/remove-friend.png")}
+                      style={{width: 40, height: 40, marginLeft: "auto" }}
+                      />
+          </TouchableOpacity>
         </View>
         </>
         
