@@ -19,9 +19,9 @@ import {
 const DEVICE_WIDTH = Dimensions.get("window").width;
 const DEVICE_HEIGHT = Dimensions.get("window").height;
 const LocationsIcon = props => {
-        
+
   return (
-    <View style={styles.locationsIcon}> 
+    <View style={styles.locationsIcon}>
       <TouchableOpacity onPress={() => (navigationRef.current?.navigate("location"))}>
       <Image style={{width: DEVICE_WIDTH / 6, height: DEVICE_WIDTH / 6}} defaultSource={require("../../assets/location.png")} />
       </TouchableOpacity>
@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
     bottom: DEVICE_WIDTH / 20,
     backgroundColor: 'transparent',
     position: 'absolute',
-    paddingRight: DEVICE_WIDTH / 2,
+    left: DEVICE_WIDTH / 2 - DEVICE_WIDTH / 12 - DEVICE_WIDTH / 4,
     padding: 0,
   },
-    
+
 
 })
 export default LocationsIcon
