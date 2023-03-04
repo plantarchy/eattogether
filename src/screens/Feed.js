@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -30,12 +30,16 @@ const Feed = props => {
   const { user, setUser } = useContext(GlobalContext);
   const [ currentEats, setCurrentEats ] = useState([]);
   const [ feedItems, setFeedItems ] = useState([]);
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
-  let items = [];
   useEffect(() => {
     (async () => {
       setCurrentEats(await getCurrentEats(user.id, setCurrentEats));
-      setFeedItems(await listEats(user.id, setFeedItems));
+      setFeedItems(await listEats(user.id, (feedItems) => {
+        console.log("GOT CALLBACK", feedItems);
+        setFeedItems(feedItems);
+        forceUpdate();
+      }));
     })()
   }, [])
 
@@ -55,6 +59,9 @@ const Feed = props => {
       ]
     );
   }
+
+  let items = [];
+  console.log("UDPAGE", currentEats)
 
   for (let i = 0; i < currentEats.length; i++) {
     console.log("agwiohag", currentEats)

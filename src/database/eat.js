@@ -71,7 +71,7 @@ export async function listEats(uid, callback) {
                 });
             });
             if (callback != null) {
-                console.log(uid, feedItems)
+                console.log("LISTUP", uid, feedItems)
                 callback(feedItems)
             }
         });
