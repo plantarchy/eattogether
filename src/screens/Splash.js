@@ -18,10 +18,36 @@ import { getUserData } from '../database/user'
 import { getAuth } from 'firebase/auth';
 import { GlobalContext }  from '../modules/GlobalContext';
 import { navigationRef } from '../lib/navigation';
+import {loginUserEmailPassword} from '../database/auth';
+import {registerForPushNotificationsAsync, updateTokenInStore} from '../database/notifications';
 
 
 // comment
-const Login = props => {
+const Splash = props => {
+  const { user, setUser } = useContext(GlobalContext);
+  const { pushToken, setPushToken } = useContext(GlobalContext);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      try {
+        const user = await loginUserEmailPassword(null, null);
+        setUser(user);
+        console.log("NEW USERGEIWGH", user);
+        await AsyncStorage.setItem("user", JSON.stringify(user));
+
+        let token = await AsyncStorage.getItem("pushToken")
+        if (token == null) token = await registerForPushNotificationsAsync();
+        await AsyncStorage.setItem("pushToken", token)
+        await updateTokenInStore(user.id, token)
+        setPushToken(token)
+
+        navigationRef.current?.navigate("main");
+      } catch (e) {
+        console.error(e);
+      }
+    }, 100);
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 48, marginBottom: 32 }}>EatWithMe</Text>
@@ -65,4 +91,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login;
+export default Splash;

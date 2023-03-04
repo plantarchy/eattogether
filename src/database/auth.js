@@ -33,10 +33,16 @@ export async function createUserEmailPassword(email, password, name, location) {
 
 export async function loginUserEmailPassword(email, password) {
     const auth = getAuth(app);
-    const res = await signInWithEmailAndPassword(auth, email, password);
-    const uid = res.user.uid;
-    console.log(res);
-    return getUserData(uid);
+    console.log("Is there?", auth.currentUser?.uid)
+    if (auth.currentUser?.uid) {
+        console.log("FOUND EXISTING USER", await getUserData(auth.currentUser.uid));
+        return await getUserData(auth.currentUser.uid);
+    } else {
+        const res = await signInWithEmailAndPassword(auth, email, password);
+        const uid = res.user.uid;
+        console.log(res);
+        return await getUserData(uid);
+    }
 }
 
 export async function logout() {
